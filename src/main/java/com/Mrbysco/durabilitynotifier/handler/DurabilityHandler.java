@@ -116,7 +116,7 @@ public class DurabilityHandler {
 		}
 		else
 		{
-			DurabilityNotifier.logger.warn("Could not locate the following: " + DurabilityConfigGen.sound.soundlocation + ". Perhaps you misspelled it.");
+			DurabilityNotifier.logger.warn("Could not locate the following sound: " + DurabilityConfigGen.sound.soundlocation + ". Perhaps you misspelled it.");
 		}
 	}
 }
