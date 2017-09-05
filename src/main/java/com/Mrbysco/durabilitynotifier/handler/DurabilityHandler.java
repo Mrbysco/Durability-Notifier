@@ -99,8 +99,9 @@ public class DurabilityHandler {
 		
 		player.sendStatusMessage(
 				new TextComponentString(
-						TextFormatting.YELLOW +"[Durability Notifier] " + TextFormatting.RESET + color + stack.getDisplayName() + 
-							" has dropped below " + DurabilityConfigGen.general.Percentage + "% durability."
+						color + stack.getDisplayName() + 
+						" has dropped below " + TextFormatting.RED + DurabilityConfigGen.general.Percentage + "%" + 
+								TextFormatting.RESET + color + " durability."
                     ),
                     true
             );

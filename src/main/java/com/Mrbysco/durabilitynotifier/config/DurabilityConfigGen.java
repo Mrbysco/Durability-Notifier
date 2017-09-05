@@ -26,7 +26,7 @@ public class DurabilityConfigGen {
 		public boolean SendMessage = true;
 		
 		@Config.Comment("Change this option to change the color / formatting of the message (if you have sound enabled) [default: red]")
-		public TextFormatting SentMessageColor = TextFormatting.RED;
+		public TextFormatting SentMessageColor = TextFormatting.YELLOW;
 		
 		@Config.Comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
 		public boolean PlaySound = false;
