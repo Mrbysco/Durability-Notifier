@@ -22,7 +22,7 @@ public class DurabilityHandler {
 		ItemStack itemStack = event.getItemStack();
 		EntityPlayer player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.general.Percentage / 100.0);
-
+		
 		if (itemStack != null) {
 			if (itemStack.getMaxDamage() != 0) {
 				if (((double) itemStack.getItemDamage() / itemStack.getMaxDamage()) > DurabilityChecking){
@@ -36,13 +36,13 @@ public class DurabilityHandler {
 						//This guy really wanted something special. So explosion sounds it is.
 						if (player != null && player.getGameProfile().getName().equalsIgnoreCase("Dcat682"))
 						{
-								player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
+							player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
 						}
 							
 						playSound(event.getEntityPlayer());
 					}
-                }
-            }
+				}
+			}
 			
 			if(DurabilityConfigGen.general.GiveFatigue == true)
 			{
@@ -60,10 +60,10 @@ public class DurabilityHandler {
 							player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 4 * 20, 3, true, true));
 						}
 					}
-	            }
+				}
 			}
 		}
-    }
+	}
 	
 	@SubscribeEvent
 	public void checkItem2(PlayerInteractEvent.LeftClickEmpty event) {
@@ -84,15 +84,15 @@ public class DurabilityHandler {
 						//This guy really wanted something special. So explosion sounds it is.
 						if (player != null && player.getGameProfile().getName().equalsIgnoreCase("Dcat682"))
 						{
-								player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
+							player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
 						}
 							
 						playSound(event.getEntityPlayer());
 					}
-                }
-            }
+				}
+			}
 		}
-    }
+	}
 	
 	public void sendMessage(EntityPlayer player, ItemStack stack) {
 		TextFormatting color = DurabilityConfigGen.general.SentMessageColor;
@@ -102,9 +102,9 @@ public class DurabilityHandler {
 						color + "Warning! " + stack.getDisplayName() + 
 						" has dropped below " + TextFormatting.RED + DurabilityConfigGen.general.Percentage + "%" + 
 								TextFormatting.RESET + color + " durability."
-                    ),
-                    true
-            );
+						),
+					true
+				);
 	}
 	
 	public void playSound(EntityPlayer player) {

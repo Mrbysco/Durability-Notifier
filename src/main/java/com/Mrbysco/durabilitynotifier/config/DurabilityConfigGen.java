@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class DurabilityConfigGen {
 
 	public static final General general = new General();
-	
+
 	public static final Sound sound = new Sound();
 
 	public static class General {
