@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -23,46 +24,7 @@ public class DurabilityHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.general.Percentage / 100.0);
 		
-		if (itemStack != null) {
-			if (itemStack.getMaxDamage() != 0) {
-				if (((double) itemStack.getItemDamage() / itemStack.getMaxDamage()) > DurabilityChecking){
-					if (DurabilityConfigGen.general.SendMessage == true)
-					{
-						sendMessage(event.getEntityPlayer(), itemStack);
-					}
-					
-					if (DurabilityConfigGen.general.PlaySound == true)
-					{
-						//This guy really wanted something special. So explosion sounds it is.
-						if (player != null && player.getGameProfile().getName().equalsIgnoreCase("Dcat682"))
-						{
-							player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
-						}
-							
-						playSound(event.getEntityPlayer());
-					}
-				}
-			}
-			
-			if(DurabilityConfigGen.general.GiveFatigue == true)
-			{
-				if (itemStack.getMaxDamage() != 0) {
-					if(itemStack.getItemDamage() == itemStack.getMaxDamage())
-					{
-						PotionEffect effect = player.getActivePotionEffect(MobEffects.MINING_FATIGUE);
-						if (effect != null && effect.getDuration() > 0) 
-						{
-							player.removeActivePotionEffect(MobEffects.MINING_FATIGUE);
-							player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 4 * 20, 3, true, true));
-						}
-						else
-						{
-							player.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 4 * 20, 3, true, true));
-						}
-					}
-				}
-			}
-		}
+		checkDurability(itemStack, player, DurabilityChecking, true);
 	}
 	
 	@SubscribeEvent
@@ -71,26 +33,54 @@ public class DurabilityHandler {
 		EntityPlayer player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.general.Percentage / 100.0);
 		
-		if (itemStack != null) {
-			if (itemStack.getMaxDamage() != 0) {
-				if (((double) itemStack.getItemDamage() / itemStack.getMaxDamage()) > DurabilityChecking){
+		checkDurability(itemStack, player, DurabilityChecking, false);
+	}
+	
+	
+	public void checkDurability(ItemStack stack, EntityPlayer playerIn, double checkNumber, boolean clickedBlock){
+		if (stack != null) {
+			if (stack.getMaxDamage() != 0) {
+				if (((double) stack.getItemDamage() / stack.getMaxDamage()) > checkNumber){
 					if (DurabilityConfigGen.general.SendMessage == true)
 					{
-						sendMessage(event.getEntityPlayer(), itemStack);
+						sendMessage(playerIn, stack);
 					}
 					
 					if (DurabilityConfigGen.general.PlaySound == true)
 					{
 						//This guy really wanted something special. So explosion sounds it is.
-						if (player != null && player.getGameProfile().getName().equalsIgnoreCase("Dcat682"))
+						if (playerIn != null && playerIn.getGameProfile().getName().equalsIgnoreCase("Dcat682"))
 						{
-							player.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
+							playerIn.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
 						}
 							
-						playSound(event.getEntityPlayer());
+						playSound(playerIn);
 					}
 				}
 			}
+			
+			if (clickedBlock)
+			{
+				if(DurabilityConfigGen.general.GiveFatigue == true)
+				{
+					if (stack.getMaxDamage() != 0) {
+						if(stack.getItemDamage() == stack.getMaxDamage())
+						{
+							PotionEffect effect = playerIn.getActivePotionEffect(MobEffects.MINING_FATIGUE);
+							if (effect != null && effect.getDuration() > 0) 
+							{
+								playerIn.removeActivePotionEffect(MobEffects.MINING_FATIGUE);
+								playerIn.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 4 * 20, 3, true, true));
+							}
+							else
+							{
+								playerIn.addPotionEffect(new PotionEffect(MobEffects.MINING_FATIGUE, 4 * 20, 3, true, true));
+							}
+						}
+					}
+				}
+			}
+			
 		}
 	}
 	
@@ -99,9 +89,9 @@ public class DurabilityHandler {
 		
 		player.sendStatusMessage(
 				new TextComponentString(
-						color + "Warning! " + stack.getDisplayName() + 
-						" has dropped below " + TextFormatting.RED + DurabilityConfigGen.general.Percentage + "%" + 
-								TextFormatting.RESET + color + " durability."
+						color + I18n.translateToLocal("warning.part1") + " " + stack.getDisplayName() + 
+						" " + I18n.translateToLocal("warning.part2") + " " + TextFormatting.RED + DurabilityConfigGen.general.Percentage + "%" + 
+								TextFormatting.RESET + color + " " + I18n.translateToLocal("warning.part3")
 						),
 					true
 				);
