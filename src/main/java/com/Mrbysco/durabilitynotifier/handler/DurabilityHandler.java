@@ -3,6 +3,7 @@ package com.Mrbysco.durabilitynotifier.handler;
 import com.Mrbysco.durabilitynotifier.DurabilityNotifier;
 import com.Mrbysco.durabilitynotifier.config.DurabilityConfigGen;
 
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.init.SoundEvents;
@@ -12,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -29,6 +29,14 @@ public class DurabilityHandler {
 	
 	@SubscribeEvent
 	public void checkItem2(PlayerInteractEvent.LeftClickEmpty event) {
+		ItemStack itemStack = event.getItemStack();
+		EntityPlayer player = event.getEntityPlayer();
+		double DurabilityChecking = 1 - (DurabilityConfigGen.general.Percentage / 100.0);
+		
+		checkDurability(itemStack, player, DurabilityChecking, false);
+	}
+	
+	public void checkItem3(PlayerInteractEvent.RightClickBlock event) {
 		ItemStack itemStack = event.getItemStack();
 		EntityPlayer player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.general.Percentage / 100.0);
@@ -89,9 +97,9 @@ public class DurabilityHandler {
 		
 		player.sendStatusMessage(
 				new TextComponentString(
-						color + I18n.translateToLocal("warning.part1") + " " + stack.getDisplayName() + 
-						" " + I18n.translateToLocal("warning.part2") + " " + TextFormatting.RED + DurabilityConfigGen.general.Percentage + "%" + 
-								TextFormatting.RESET + color + " " + I18n.translateToLocal("warning.part3")
+						color + I18n.format("warning.part1") + " " + stack.getDisplayName() + 
+						" " + I18n.format("warning.part2") + " " + TextFormatting.RED + DurabilityConfigGen.general.Percentage + "%" + 
+								TextFormatting.RESET + color + " " + I18n.format("warning.part3")
 						),
 					true
 				);
