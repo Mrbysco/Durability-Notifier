@@ -1,4 +1,4 @@
-package com.Mrbysco.durabilitynotifier;
+package com.mrbysco.durabilitynotifier;
 
 public class Reference {
 	public static final String MOD_ID = "durabilitynotifier";

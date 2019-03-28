@@ -1,9 +1,11 @@
-package com.Mrbysco.durabilitynotifier.config;
+package com.mrbysco.durabilitynotifier.config;
 
 import static net.minecraftforge.fml.Logging.CORE;
 import static net.minecraftforge.fml.loading.LogMarkers.FORGEMOD;
 
-import com.Mrbysco.durabilitynotifier.DurabilityNotifier;
+import org.apache.commons.lang3.tuple.Pair;
+
+import com.mrbysco.durabilitynotifier.DurabilityNotifier;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
@@ -14,17 +16,19 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.config.ModConfig;
 
 public class DurabilityConfigGen {
-	private static final ForgeConfigSpec.Builder CLIENT_BUILDER = new ForgeConfigSpec.Builder();
-    public static final General general = new General(CLIENT_BUILDER);
-    public static final Sound sound = new Sound(CLIENT_BUILDER);
 
-	public static class General {
+    public static class Client {
+    	//General
         public final IntValue Percentage;
     	public final BooleanValue SendMessage;
     	public final ConfigValue<String> SentMessageColor;
     	public final BooleanValue PlaySound;
 
-    	General(ForgeConfigSpec.Builder builder) {
+    	//Sound
+    	public final ConfigValue<String> soundlocation;
+    	public final DoubleValue volume;
+    	
+    	Client(ForgeConfigSpec.Builder builder) {
         	builder.comment("General settings")
             .push("general");
 
@@ -43,16 +47,8 @@ public class DurabilityConfigGen {
         	PlaySound = builder
         			.comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
         			.define("PlaySound", true);
-        	
-        	builder.pop();
-        }
-	}
-	
-	public static class Sound {
-    	public final ConfigValue<String> soundlocation;
-    	public final DoubleValue volume;
-    	
-    	Sound(ForgeConfigSpec.Builder builder) {
+
+			builder.pop();
         	builder.comment("Sound settings")
             .push("sound");
 
@@ -65,11 +61,18 @@ public class DurabilityConfigGen {
         			.defineInRange("volume", 0.6, 0.0, 5.0);
         	
         	builder.pop();
+        	
         }
 	}
     
-	public static final ForgeConfigSpec spec = CLIENT_BUILDER.build();
-	    
+    public static final ForgeConfigSpec clientSpec;
+    public static final Client CLIENT;
+    static {
+        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+        clientSpec = specPair.getRight();
+        CLIENT = specPair.getLeft();
+    }
+    
 	@SubscribeEvent
     public static void onLoad(final ModConfig.Loading configEvent) {
 		DurabilityNotifier.LOGGER.debug(FORGEMOD, "Loaded Durability Notifier's config file {}", configEvent.getConfig().getFileName());
