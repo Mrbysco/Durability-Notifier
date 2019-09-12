@@ -1,15 +1,15 @@
 package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.config.DurabilityConfigGen;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,7 +37,7 @@ public class DurabilityNotifier {
 	@SubscribeEvent
 	public void checkItem(final PlayerInteractEvent.LeftClickBlock event) {
 		ItemStack itemStack = event.getItemStack();
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
 
 		if(!itemStack.isEmpty())
@@ -47,7 +47,7 @@ public class DurabilityNotifier {
 	@SubscribeEvent
 	public void checkItem2(final PlayerInteractEvent.LeftClickEmpty event) {
 		ItemStack itemStack = event.getItemStack();
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
 		
 		if(!itemStack.isEmpty())
@@ -57,7 +57,7 @@ public class DurabilityNotifier {
 	@SubscribeEvent
 	public void checkItem3(final PlayerInteractEvent.RightClickBlock event) {
 		ItemStack itemStack = event.getItemStack();
-		EntityPlayer player = event.getEntityPlayer();
+		PlayerEntity player = event.getEntityPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
 
 		if(!itemStack.isEmpty())
@@ -65,7 +65,7 @@ public class DurabilityNotifier {
 	}
 	
 	
-	public void checkDurability(ItemStack stack, EntityPlayer playerIn, double checkNumber, boolean clickedBlock){
+	public void checkDurability(ItemStack stack, PlayerEntity playerIn, double checkNumber, boolean clickedBlock){
 		if (stack != null) {
 			if (stack.getMaxDamage() != 0) {
 				if (((double) stack.getDamage() / stack.getMaxDamage()) > checkNumber){
@@ -112,15 +112,15 @@ public class DurabilityNotifier {
 		}
 	}
 	
-	public void sendMessage(EntityPlayer player, ItemStack stack) {
+	public void sendMessage(PlayerEntity player, ItemStack stack) {
 		TextFormatting color = TextFormatting.getValueByName(DurabilityConfigGen.CLIENT.SentMessageColor.get());
 		
-		ITextComponent message = new TextComponentTranslation("warning.part1", new Object[] {stack.getDisplayName().getString()});
+		ITextComponent message = new TranslationTextComponent("warning.part1", new Object[] {stack.getDisplayName().getString()});
 						message.getStyle().setColor(color);
-		ITextComponent message2 = new TextComponentString(" " + String.valueOf(DurabilityConfigGen.CLIENT.Percentage.get()) + "%" + " ");
+		ITextComponent message2 = new StringTextComponent(" " + DurabilityConfigGen.CLIENT.Percentage.get() + "%" + " ");
 						message2.getStyle().setColor(TextFormatting.RED);
 		
-		ITextComponent message3 = new TextComponentTranslation("warning.part3", new Object[0]);
+		ITextComponent message3 = new TranslationTextComponent("warning.part3", new Object[0]);
 						message3.getStyle().setColor(color);
 		player.sendStatusMessage(
 				message.appendSibling(message2).appendSibling(message3),
@@ -128,7 +128,7 @@ public class DurabilityNotifier {
 				);
 	}
 	
-	public void playSound(EntityPlayer player) {
+	public void playSound(PlayerEntity player) {
 		ResourceLocation soundLoc = new ResourceLocation(DurabilityConfigGen.CLIENT.soundlocation.get());
 				
 		if(ForgeRegistries.SOUND_EVENTS.containsKey(soundLoc))
