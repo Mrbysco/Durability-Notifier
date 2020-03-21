@@ -79,7 +79,7 @@ public class DurabilityConfigGen {
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.ConfigReloading configEvent) {
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
         DurabilityNotifier.LOGGER.fatal(CORE, "Durability Notifier's config just got changed on the file system!");
     }
 }

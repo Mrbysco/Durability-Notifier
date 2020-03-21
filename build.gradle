@@ -19,17 +19,18 @@ archivesBaseName = 'DurabilityNotifier'
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190719-1.14.3'
+    mappings channel: 'snapshot', version: '20200321-1.15.1'
     runs {
         client {
             workingDirectory project.file('run')
+
             // Recommended logging data for a userdev environment
             // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                durabilitynotifier {
                     source sourceSets.main
                 }
             }
@@ -37,13 +38,31 @@ minecraft {
 
         server {
             workingDirectory project.file('run')
+
             // Recommended logging data for a userdev environment
-            // property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            //property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
             // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             mods {
-                examplemod {
+                durabilitynotifier {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+
+            // Recommended logging data for a userdev environment
+            //property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+
+            args '--mod', 'durabilitynotifier', '--all', '--output', file('src/generated/resources/')
+
+            mods {
+                durabilitynotifier {
                     source sourceSets.main
                 }
             }
@@ -52,7 +71,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.61'
+    minecraft 'net.minecraftforge:forge:1.15.2-31.1.27'
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..

@@ -37,7 +37,7 @@ public class DurabilityNotifier {
 	@SubscribeEvent
 	public void checkItem(final PlayerInteractEvent.LeftClickBlock event) {
 		ItemStack itemStack = event.getItemStack();
-		PlayerEntity player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
 
 		if(!itemStack.isEmpty())
@@ -47,7 +47,7 @@ public class DurabilityNotifier {
 	@SubscribeEvent
 	public void checkItem2(final PlayerInteractEvent.LeftClickEmpty event) {
 		ItemStack itemStack = event.getItemStack();
-		PlayerEntity player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
 		
 		if(!itemStack.isEmpty())
@@ -57,7 +57,7 @@ public class DurabilityNotifier {
 	@SubscribeEvent
 	public void checkItem3(final PlayerInteractEvent.RightClickBlock event) {
 		ItemStack itemStack = event.getItemStack();
-		PlayerEntity player = event.getEntityPlayer();
+		PlayerEntity player = event.getPlayer();
 		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
 
 		if(!itemStack.isEmpty())
