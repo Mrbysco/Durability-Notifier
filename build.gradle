@@ -14,7 +14,7 @@ apply plugin: 'eclipse'
 
 version = '1.0.0'
 group = 'com.mrbysco.durabilitynotifier' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'DurabilityNotifier'
+archivesBaseName = 'DurabilityNotifier-1.15'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
