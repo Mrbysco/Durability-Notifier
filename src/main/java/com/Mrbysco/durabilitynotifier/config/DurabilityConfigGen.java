@@ -3,6 +3,8 @@ package com.mrbysco.durabilitynotifier.config;
 import static net.minecraftforge.fml.Logging.CORE;
 import static net.minecraftforge.fml.loading.LogMarkers.FORGEMOD;
 
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import org.apache.commons.lang3.tuple.Pair;
 
 import com.mrbysco.durabilitynotifier.DurabilityNotifier;
@@ -21,7 +23,7 @@ public class DurabilityConfigGen {
     	//General
         public final IntValue Percentage;
     	public final BooleanValue SendMessage;
-    	public final ConfigValue<String> SentMessageColor;
+    	public final EnumValue<TextFormatting> SentMessageColor;
     	public final BooleanValue PlaySound;
 
     	//Sound
@@ -41,8 +43,8 @@ public class DurabilityConfigGen {
         			.define("SendMessage", true);
         	
         	SentMessageColor = builder
-        			.comment("Change this option to change the color / formatting of the message (if you have sound enabled) [default: yellow]")
-        			.define("SentMessageColor", "yellow");
+        			.comment("Change this option to change the color / formatting of the message (if you have mesages enabled) [default: YELLOW]")
+        			.defineEnum("SentMessageColor", TextFormatting.YELLOW);
         	
         	PlaySound = builder
         			.comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")

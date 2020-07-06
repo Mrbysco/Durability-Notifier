@@ -5,7 +5,7 @@ Notifying you whenever your tools hit a certain percentage of durability since 2
 
 ## License ##
 * Durability Notifier is licensed under the MIT License
-  - (c) 2017 Mrbysco
+  - (c) 2020 Mrbysco
   - [![License](https://img.shields.io/badge/License-MIT-red.svg?style=flat)](http://opensource.org/licenses/MIT)
 
 ## Downloads ##

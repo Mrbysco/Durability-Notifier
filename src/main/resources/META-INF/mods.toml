@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[31,)"
+loaderVersion="[32,)"
 issueTrackerURL="https://minecraft.curseforge.com/projects/durability-notifier/issues"
 
 [[mods]]
@@ -8,6 +8,4 @@ version="${file.jarVersion}"
 displayName="Durability Notifier"
 displayURL="https://minecraft.curseforge.com/projects/durability-notifier"
 authors="Mrbysco"
-description='''
-A minecraft mod that notifies you when your durability gets at a certain percentage
-'''
+description='''A minecraft mod that notifies you when your durability gets at a certain percentage'''
