@@ -96,12 +96,12 @@ public class DurabilityNotifier {
 		TextFormatting color = DurabilityConfigGen.CLIENT.SentMessageColor.get();
 		
 		TextComponent message = new TranslationTextComponent("warning.part1", new Object[] {stack.getDisplayName().getString()});
-						message.func_240699_a_(color);
+						message.mergeStyle(color);
 		TextComponent message2 = new StringTextComponent(" " + DurabilityConfigGen.CLIENT.Percentage.get() + "%" + " ");
-						message2.func_240699_a_(TextFormatting.RED);
+						message2.mergeStyle(TextFormatting.RED);
 		TextComponent message3 = new TranslationTextComponent("warning.part3", new Object[0]);
-						message3.func_240699_a_(color);
-		player.sendStatusMessage(message.func_230529_a_(message2).func_230529_a_(message3),true);
+						message3.mergeStyle(color);
+		player.sendStatusMessage(message.append(message2).append(message3),true);
 	}
 	
 	public void playSound(PlayerEntity player) {

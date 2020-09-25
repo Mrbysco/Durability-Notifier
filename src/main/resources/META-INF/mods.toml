@@ -1,6 +1,7 @@
 modLoader="javafml"
-loaderVersion="[32,)"
+loaderVersion="[33,)"
 issueTrackerURL="https://minecraft.curseforge.com/projects/durability-notifier/issues"
+license="MIT"
 
 [[mods]]
 modId="durabilitynotifier"

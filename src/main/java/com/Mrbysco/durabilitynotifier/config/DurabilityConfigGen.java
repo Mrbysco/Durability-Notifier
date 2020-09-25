@@ -1,21 +1,19 @@
 package com.mrbysco.durabilitynotifier.config;
 
-import static net.minecraftforge.fml.Logging.CORE;
-import static net.minecraftforge.fml.loading.LogMarkers.FORGEMOD;
-
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import org.apache.commons.lang3.tuple.Pair;
-
 import com.mrbysco.durabilitynotifier.DurabilityNotifier;
-
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
+import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.config.ModConfig;
+import org.apache.commons.lang3.tuple.Pair;
+
+import static net.minecraftforge.fml.Logging.CORE;
+import static net.minecraftforge.fml.loading.LogMarkers.FORGEMOD;
 
 public class DurabilityConfigGen {
 
