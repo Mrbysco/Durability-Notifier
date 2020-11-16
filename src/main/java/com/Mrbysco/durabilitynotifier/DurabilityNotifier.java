@@ -18,7 +18,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.network.FMLNetworkConstants;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.LogManager;
@@ -36,7 +35,10 @@ public class DurabilityNotifier {
         MinecraftForge.EVENT_BUS.register(this);
 
 		//Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
-		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(
+				() -> "Trans Rights Are Human Rights",
+				(remoteVersionString,networkBool) -> networkBool
+		));
     }
 
 	@SubscribeEvent
@@ -74,11 +76,11 @@ public class DurabilityNotifier {
 		if (stack != null) {
 			if (stack.getMaxDamage() != 0) {
 				if (((double) stack.getDamage() / stack.getMaxDamage()) > checkNumber){
-					if (DurabilityConfigGen.CLIENT.SendMessage.get() == true) {
+					if (DurabilityConfigGen.CLIENT.SendMessage.get()) {
 						sendMessage(playerIn, stack);
 					}
 
-					if (DurabilityConfigGen.CLIENT.PlaySound.get() == true) {
+					if (DurabilityConfigGen.CLIENT.PlaySound.get()) {
 						//This guy really wanted something special. So explosion sounds it is.
 						if (playerIn != null && playerIn.getGameProfile().getName().equalsIgnoreCase("Dcat682")) {
 							playerIn.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
@@ -95,7 +97,7 @@ public class DurabilityNotifier {
 	public void sendMessage(PlayerEntity player, ItemStack stack) {
 		TextFormatting color = DurabilityConfigGen.CLIENT.SentMessageColor.get();
 		
-		TextComponent message = new TranslationTextComponent("warning.part1", new Object[] {stack.getDisplayName().getString()});
+		TextComponent message = new TranslationTextComponent("warning.part1", stack.getDisplayName().getString());
 						message.mergeStyle(color);
 		TextComponent message2 = new StringTextComponent(" " + DurabilityConfigGen.CLIENT.Percentage.get() + "%" + " ");
 						message2.mergeStyle(TextFormatting.RED);
