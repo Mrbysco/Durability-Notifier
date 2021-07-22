@@ -1,7 +1,7 @@
 package com.mrbysco.durabilitynotifier.config;
 
 import com.mrbysco.durabilitynotifier.DurabilityNotifier;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.ChatFormatting;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -9,11 +9,8 @@ import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
-
-import static net.minecraftforge.fml.Logging.CORE;
-import static net.minecraftforge.fml.loading.LogMarkers.FORGEMOD;
 
 public class DurabilityConfigGen {
 
@@ -21,7 +18,7 @@ public class DurabilityConfigGen {
     	//General
         public final IntValue Percentage;
     	public final BooleanValue SendMessage;
-    	public final EnumValue<TextFormatting> SentMessageColor;
+    	public final EnumValue<ChatFormatting> SentMessageColor;
     	public final BooleanValue PlaySound;
 
     	//Sound
@@ -42,7 +39,7 @@ public class DurabilityConfigGen {
         	
         	SentMessageColor = builder
         			.comment("Change this option to change the color / formatting of the message (if you have mesages enabled) [default: YELLOW]")
-        			.defineEnum("SentMessageColor", TextFormatting.YELLOW);
+        			.defineEnum("SentMessageColor", ChatFormatting.YELLOW);
         	
         	PlaySound = builder
         			.comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
@@ -74,12 +71,12 @@ public class DurabilityConfigGen {
     }
     
 	@SubscribeEvent
-    public static void onLoad(final ModConfig.Loading configEvent) {
-		DurabilityNotifier.LOGGER.debug(FORGEMOD, "Loaded Durability Notifier's config file {}", configEvent.getConfig().getFileName());
+    public static void onLoad(final ModConfigEvent.Loading configEvent) {
+		DurabilityNotifier.LOGGER.debug("Loaded Durability Notifier's config file {}", configEvent.getConfig().getFileName());
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading configEvent) {
-        DurabilityNotifier.LOGGER.fatal(CORE, "Durability Notifier's config just got changed on the file system!");
+    public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
+        DurabilityNotifier.LOGGER.fatal("Durability Notifier's config just got changed on the file system!");
     }
 }
