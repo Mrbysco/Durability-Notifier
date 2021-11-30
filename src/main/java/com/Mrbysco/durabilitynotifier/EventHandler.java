@@ -14,6 +14,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.UUID;
+
 public class EventHandler {
 	@SubscribeEvent
 	public void checkItem(final PlayerInteractEvent.LeftClickBlock event) {
@@ -49,15 +51,15 @@ public class EventHandler {
 	public void checkDurability(ItemStack stack, PlayerEntity playerIn, double checkNumber){
 		if (stack != null) {
 			if (stack.getMaxDamage() != 0) {
-				if (((double) stack.getDamage() / stack.getMaxDamage()) > checkNumber){
+				if (((double) stack.getDamageValue() / stack.getMaxDamage()) > checkNumber){
 					if (DurabilityConfigGen.CLIENT.SendMessage.get()) {
 						sendMessage(playerIn, stack);
 					}
 
 					if (DurabilityConfigGen.CLIENT.PlaySound.get()) {
 						//This guy really wanted something special. So explosion sounds it is.
-						if (playerIn != null && playerIn.getGameProfile().getName().equalsIgnoreCase("Dcat682")) {
-							playerIn.playSound(SoundEvents.ENTITY_GENERIC_EXPLODE, 1F, 1F);
+						if (playerIn != null && playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
+							playerIn.playSound(SoundEvents.GENERIC_EXPLODE, 1F, 1F);
 						}
 
 						playSound(playerIn);
@@ -71,13 +73,13 @@ public class EventHandler {
 	public void sendMessage(PlayerEntity player, ItemStack stack) {
 		TextFormatting color = DurabilityConfigGen.CLIENT.SentMessageColor.get();
 
-		TextComponent message = new TranslationTextComponent("warning.part1", stack.getDisplayName().getString());
-		message.mergeStyle(color);
+		TextComponent message = new TranslationTextComponent("warning.part1", stack.getHoverName().getString());
+		message.withStyle(color);
 		TextComponent message2 = new StringTextComponent(" " + DurabilityConfigGen.CLIENT.Percentage.get() + "%" + " ");
-		message2.mergeStyle(TextFormatting.RED);
+		message2.withStyle(TextFormatting.RED);
 		TextComponent message3 = new TranslationTextComponent("warning.part3", new Object[0]);
-		message3.mergeStyle(color);
-		player.sendStatusMessage(message.appendSibling(message2).appendSibling(message3),true);
+		message3.withStyle(color);
+		player.displayClientMessage(message.append(message2).append(message3),true);
 	}
 
 	public void playSound(PlayerEntity player) {
