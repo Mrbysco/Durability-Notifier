@@ -14,6 +14,8 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.UUID;
+
 public class EventHandler {
 	@SubscribeEvent
 	public void checkItem(final PlayerInteractEvent.LeftClickBlock event) {
@@ -56,7 +58,7 @@ public class EventHandler {
 
 					if (DurabilityConfigGen.CLIENT.PlaySound.get()) {
 						//This guy really wanted something special. So explosion sounds it is.
-						if (playerIn != null && playerIn.getGameProfile().getName().equalsIgnoreCase("Dcat682")) {
+						if (playerIn != null && playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
 							playerIn.playSound(SoundEvents.GENERIC_EXPLODE, 1F, 1F);
 						}
 
