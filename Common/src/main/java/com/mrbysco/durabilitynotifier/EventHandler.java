@@ -1,7 +1,6 @@
 package com.mrbysco.durabilitynotifier;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.network.chat.BaseComponent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
