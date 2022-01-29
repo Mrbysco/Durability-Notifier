@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -19,34 +19,25 @@ import java.util.UUID;
 public class EventHandler {
 	@SubscribeEvent
 	public void checkItem(final PlayerInteractEvent.LeftClickBlock event) {
-		ItemStack itemStack = event.getItemStack();
-		PlayerEntity player = event.getPlayer();
-		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
-
-		if(!itemStack.isEmpty())
-			checkDurability(itemStack, player, DurabilityChecking);
+		checkDurability(event.getItemStack(), event.getPlayer());
 	}
 
 	@SubscribeEvent
 	public void checkItem2(final PlayerInteractEvent.LeftClickEmpty event) {
-		ItemStack itemStack = event.getItemStack();
-		PlayerEntity player = event.getPlayer();
-		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
-
-		if(!itemStack.isEmpty())
-			checkDurability(itemStack, player, DurabilityChecking);
+		checkDurability(event.getItemStack(), event.getPlayer());
 	}
 
 	@SubscribeEvent
 	public void checkItem3(final PlayerInteractEvent.RightClickBlock event) {
-		ItemStack itemStack = event.getItemStack();
-		PlayerEntity player = event.getPlayer();
-		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
-
-		if(!itemStack.isEmpty())
-			checkDurability(itemStack, player, DurabilityChecking);
+		checkDurability(event.getItemStack(), event.getPlayer());
 	}
 
+	public void checkDurability(ItemStack stack, PlayerEntity player) {
+		double DurabilityChecking = 1 - (DurabilityConfigGen.CLIENT.Percentage.get() / 100.0);
+
+		if(!stack.isEmpty())
+			checkDurability(stack, player, DurabilityChecking);
+	}
 
 	public void checkDurability(ItemStack stack, PlayerEntity playerIn, double checkNumber){
 		if (stack != null) {
@@ -56,7 +47,7 @@ public class EventHandler {
 						sendMessage(playerIn, stack);
 					}
 
-					if (DurabilityConfigGen.CLIENT.PlaySound.get()) {
+					if (DurabilityConfigGen.CLIENT.PlaySound.get() && CooldownUtil.isNotOnCooldown(stack, 500L)) {
 						//This guy really wanted something special. So explosion sounds it is.
 						if (playerIn != null && playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
 							playerIn.playSound(SoundEvents.GENERIC_EXPLODE, 1F, 1F);
@@ -66,20 +57,17 @@ public class EventHandler {
 					}
 				}
 			}
-
 		}
 	}
 
 	public void sendMessage(PlayerEntity player, ItemStack stack) {
-		TextFormatting color = DurabilityConfigGen.CLIENT.SentMessageColor.get();
+		TextFormatting messageColor = DurabilityConfigGen.CLIENT.SentMessageColor.get();
 
-		TextComponent message = new TranslationTextComponent("warning.part1", stack.getHoverName().getString());
-		message.withStyle(color);
-		TextComponent message2 = new StringTextComponent(" " + DurabilityConfigGen.CLIENT.Percentage.get() + "%" + " ");
-		message2.withStyle(TextFormatting.RED);
-		TextComponent message3 = new TranslationTextComponent("warning.part3", new Object[0]);
-		message3.withStyle(color);
-		player.displayClientMessage(message.append(message2).append(message3),true);
+		IFormattableTextComponent part1 = new TranslationTextComponent("durabilitynotifier.warning.part1", stack.getDisplayName()).withStyle(messageColor);
+		IFormattableTextComponent part2 = new TranslationTextComponent("durabilitynotifier.warning.part2").withStyle(messageColor);
+		IFormattableTextComponent percentage = new StringTextComponent(DurabilityConfigGen.CLIENT.Percentage.get() + "%" + " ").withStyle(TextFormatting.RED);
+		IFormattableTextComponent part3 = new TranslationTextComponent("durabilitynotifier.warning.part3").withStyle(messageColor);
+		player.displayClientMessage(part1.append(part2).append(percentage).append(part3),true);
 	}
 
 	public void playSound(PlayerEntity player) {

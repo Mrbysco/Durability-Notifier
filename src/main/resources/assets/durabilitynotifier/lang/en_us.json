@@ -3,7 +3,7 @@
   "durabilitynotifier.config.title": "Durability Notifier Config",
 
   "_comment": "Warning message",
-  "warning.part1": "Warning! %s",
-  "warning.part2": "has dropped below",
-  "warning.part3": "durability."
+  "durabilitynotifier.warning.part1": "Warning! %s",
+  "durabilitynotifier.warning.part2": " has dropped below ",
+  "durabilitynotifier.warning.part3": "durability."
 }
