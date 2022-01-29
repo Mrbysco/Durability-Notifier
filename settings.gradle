@@ -12,5 +12,5 @@ pluginManagement {
     }
 }
 
-rootProject.name = 'MultiLoader'
+rootProject.name = 'DurabilityNotifier'
 include("Common", "Fabric", "Forge")
