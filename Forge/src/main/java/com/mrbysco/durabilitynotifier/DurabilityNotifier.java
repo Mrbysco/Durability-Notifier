@@ -39,18 +39,18 @@ public class DurabilityNotifier {
     private void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
         ItemStack itemStack = event.getItemStack();
         Player player = event.getPlayer();
-        EventHandler.checkLeftClickBlock(itemStack, player);
+        EventHandler.checkDurability(itemStack, player);
     }
 
     private void onLeftClickEmpty(final PlayerInteractEvent.LeftClickEmpty event) {
         ItemStack itemStack = event.getItemStack();
         Player player = event.getPlayer();
-        EventHandler.checkLeftClickEmpty(itemStack, player);
+        EventHandler.checkDurability(itemStack, player);
     }
 
     private void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
         ItemStack itemStack = event.getItemStack();
         Player player = event.getPlayer();
-        EventHandler.checkRightClickBlock(itemStack, player);
+        EventHandler.checkDurability(itemStack, player);
     }
 }

@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionResult;
 
 public class DurabilityNotifier implements ClientModInitializer {
-
     @Override
     public void onInitializeClient() {
         // Use Fabric to bootstrap the Common mod.
@@ -30,17 +29,17 @@ public class DurabilityNotifier implements ClientModInitializer {
         // Some code like events require special initialization from the
         // loader specific code.
         AttackBlockCallback.EVENT.register((player, world, hand, pos, face) -> {
-            EventHandler.checkLeftClickBlock(player.getItemInHand(hand), player);
+            EventHandler.checkDurability(player.getItemInHand(hand), player);
             return InteractionResult.PASS;
         });
 
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
-            EventHandler.checkRightClickBlock(player.getItemInHand(hand), player);
+            EventHandler.checkDurability(player.getItemInHand(hand), player);
             return InteractionResult.PASS;
         });
 
         ClickAirCallback.EVENT.register((player, hand) -> {
-            EventHandler.checkLeftClickEmpty(player.getItemInHand(hand), player);
+            EventHandler.checkDurability(player.getItemInHand(hand), player);
             return InteractionResult.PASS;
         });
     }
