@@ -1,0 +1,9 @@
+{
+  "_comment": "Config Name",
+  "durabilitynotifier.config.title": "Config di Durability Notifier",
+
+  "_comment": "Warning message",
+  "durabilitynotifier.warning.part1": "Attenzione! %s",
+  "durabilitynotifier.warning.part2": " è sceso sotto al ",
+  "durabilitynotifier.warning.part3": "di durabilità."
+}
