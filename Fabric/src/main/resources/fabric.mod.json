@@ -1,44 +1,40 @@
 {
-    "schemaVersion": 1,
-    "id": "durabilitynotifier",
-    "version": "${version}",
-  
-    "name": "Durability Notifier",
-    "description": "A minecraft mod that notifies you when your durability gets at a certain percentage",
-    "authors": [
-      "Mrbysco"
-    ],
-    "contact": {
-      "homepage": "https://www.curseforge.com/minecraft/mc-mods/durability-notifier",
-      "sources": "https://github.com/Mrbysco/durability-notifier",
-      "issues": "https://github.com/Mrbysco/durability-notifier/issues"
-    },
-  
-    "license": "MIT",
-    "icon": "assets/durabilitynotifier/icon.png",
-  
-    "environment": "*",
-    "entrypoints": {
-      "client": [
-        "com.mrbysco.durabilitynotifier.DurabilityNotifier"
-      ],
-      "modmenu": [
-        "com.mrbysco.durabilitynotifier.config.DurabilityModMenuIntegration"
-      ]
-    },
-    "mixins": [
-	  "durabilitynotifier.mixins.json"
-    ],
-  
-    "depends": {
-      "fabricloader": ">=0.12",
-      "fabric": "*",
-      "minecraft": "1.18.x",
-      "java": ">=17",
-      "cloth-config": ">=6.0.42"
-    },
-    "suggests": {
-      "another-mod": "*"
-    }
+  "schemaVersion": 1,
+  "id": "durabilitynotifier",
+  "version": "${version}",
+  "name": "Durability Notifier",
+  "description": "A minecraft mod that notifies you when your durability gets at a certain percentage",
+  "authors": [
+	"Mrbysco"
+  ],
+  "contact": {
+	"homepage": "https://www.curseforge.com/minecraft/mc-mods/durability-notifier",
+	"sources": "https://github.com/Mrbysco/durability-notifier",
+	"issues": "https://github.com/Mrbysco/durability-notifier/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/durabilitynotifier/icon.png",
+  "environment": "*",
+  "entrypoints": {
+	"client": [
+	  "com.mrbysco.durabilitynotifier.DurabilityNotifier"
+	],
+	"modmenu": [
+	  "com.mrbysco.durabilitynotifier.config.DurabilityModMenuIntegration"
+	]
+  },
+  "mixins": [
+	"durabilitynotifier.mixins.json"
+  ],
+  "depends": {
+	"fabricloader": ">=0.12",
+	"fabric": "*",
+	"minecraft": "1.18.x",
+	"java": ">=17",
+	"cloth-config": ">=6.0.42"
+  },
+  "suggests": {
+	"another-mod": "*"
   }
+}
   

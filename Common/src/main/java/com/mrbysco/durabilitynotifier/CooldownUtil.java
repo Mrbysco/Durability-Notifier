@@ -14,7 +14,7 @@ public class CooldownUtil {
 	}
 
 	public static boolean isNotOnCooldown(ItemStack stack, long time) {
-		if(isAvailable(stack, time)) {
+		if (isAvailable(stack, time)) {
 			cooldownMap.put(stack, System.currentTimeMillis());
 			return true;
 		} else {
@@ -23,7 +23,7 @@ public class CooldownUtil {
 	}
 
 	public static boolean isAvailable(ItemStack stack, Long time) {
-		if(cooldownMap.containsKey(stack)) {
+		if (cooldownMap.containsKey(stack)) {
 			long lastUsed = cooldownMap.get(stack);
 			return System.currentTimeMillis() >= (lastUsed + time);
 		}

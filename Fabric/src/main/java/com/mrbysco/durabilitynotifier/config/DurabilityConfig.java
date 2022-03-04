@@ -20,11 +20,11 @@ public class DurabilityConfig implements ConfigData {
 	@CollapsibleObject
 	public Sound sound = new Sound();
 
-    public static class General {
-    	//General
+	public static class General {
+		//General
 		@Comment("Sets the percentage the mod checks for [default: 10] (1 to 100)")
 		@BoundedDiscrete(min = 0, max = 100)
-        public int percentage = 10;
+		public int percentage = 10;
 	}
 
 	public static class Message {

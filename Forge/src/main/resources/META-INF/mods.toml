@@ -1,19 +1,19 @@
-modLoader="javafml"
-loaderVersion="[38,)"
-issueTrackerURL="https://minecraft.curseforge.com/projects/durability-notifier/issues"
-license="MIT"
+modLoader = "javafml"
+loaderVersion = "[40,)"
+issueTrackerURL = "https://minecraft.curseforge.com/projects/durability-notifier/issues"
+license = "MIT"
 
 [[mods]]
-modId="durabilitynotifier"
-version="${file.jarVersion}"
-displayName="Durability Notifier"
-displayURL="https://minecraft.curseforge.com/projects/durability-notifier"
-authors="Mrbysco"
-description='''A minecraft mod that notifies you when your durability gets at a certain percentage'''
+modId = "durabilitynotifier"
+version = "${file.jarVersion}"
+displayName = "Durability Notifier"
+displayURL = "https://minecraft.curseforge.com/projects/durability-notifier"
+authors = "Mrbysco"
+description = '''A minecraft mod that notifies you when your durability gets at a certain percentage'''
 
 [[dependencies.durabilitynotifier]]
-modId="minecraft"
-mandatory=true
-versionRange="[1.18,1.19)"
-ordering="NONE"
-side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,1.19)"
+ordering = "NONE"
+side = "BOTH"

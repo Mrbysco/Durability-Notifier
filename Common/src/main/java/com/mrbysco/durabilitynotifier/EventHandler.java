@@ -25,7 +25,7 @@ public class EventHandler {
 	public static void checkDurability(ItemStack stack, Player player) {
 		double DurabilityChecking = 1 - (percentage / 100.0);
 
-		if(!stack.isEmpty())
+		if (!stack.isEmpty())
 			checkDurability(stack, player, DurabilityChecking);
 	}
 
@@ -53,7 +53,7 @@ public class EventHandler {
 		MutableComponent part2 = new TranslatableComponent("durabilitynotifier.warning.part2").withStyle(messageColor);
 		MutableComponent percentage = new TextComponent(EventHandler.percentage + "%" + " ").withStyle(ChatFormatting.RED);
 		MutableComponent part3 = new TranslatableComponent("durabilitynotifier.warning.part3").withStyle(messageColor);
-		player.displayClientMessage(part1.append(part2).append(percentage).append(part3),true);
+		player.displayClientMessage(part1.append(part2).append(percentage).append(part3), true);
 	}
 
 	public static void playSound(Player player) {

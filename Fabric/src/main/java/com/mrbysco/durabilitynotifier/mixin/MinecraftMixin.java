@@ -10,6 +10,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
@@ -18,7 +19,7 @@ public class MinecraftMixin {
 	public LocalPlayer player;
 
 	@Inject(method = "startAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;resetAttackStrengthTicker()V", ordinal = 0))
-	private void leftClickAir(CallbackInfo ci) {
+	private void leftClickAir(CallbackInfoReturnable<Boolean> cir) {
 		ClickAirCallback.EVENT.invoker().interact(player, InteractionHand.MAIN_HAND);
 	}
 }
