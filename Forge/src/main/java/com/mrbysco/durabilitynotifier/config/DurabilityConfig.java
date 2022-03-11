@@ -1,11 +1,8 @@
 package com.mrbysco.durabilitynotifier.config;
 
-import com.mrbysco.durabilitynotifier.EventHandler;
 import com.mrbysco.durabilitynotifier.Reference;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
@@ -14,7 +11,6 @@ import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class DurabilityConfig {
@@ -43,7 +39,7 @@ public class DurabilityConfig {
 					.define("SendMessage", true);
 
 			SentMessageColor = builder
-					.comment("Change this option to change the color / formatting of the message (if you have mesages enabled) [default: YELLOW]")
+					.comment("Change this option to change the color / formatting of the message (if you have messages enabled) [default: YELLOW]")
 					.defineEnum("SentMessageColor", ChatFormatting.YELLOW);
 
 			PlaySound = builder
@@ -84,30 +80,5 @@ public class DurabilityConfig {
 	@SubscribeEvent
 	public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
 		Reference.LOGGER.warn("Durability Notifier's config just got changed on the file system!");
-	}
-
-	@SubscribeEvent
-	public static void onFileChange(final ModConfigEvent configEvent) {
-		if (Reference.MOD_ID.equals(configEvent.getConfig().getModId())) {
-			EventHandler.percentage = CLIENT.Percentage.get();
-
-			EventHandler.sendMessage = CLIENT.SendMessage.get();
-			EventHandler.messageColor = CLIENT.SentMessageColor.get();
-
-			EventHandler.playSound = CLIENT.PlaySound.get();
-			EventHandler.soundVolume = CLIENT.volume.get().floatValue();
-			ResourceLocation soundLocation = ResourceLocation.tryParse(CLIENT.soundlocation.get());
-			if (soundLocation != null) {
-				SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(soundLocation);
-				if (sound != null) {
-					EventHandler.soundLocation = soundLocation;
-					EventHandler.chosenSound = sound;
-				} else {
-					EventHandler.soundLocation = SoundEvents.NOTE_BLOCK_PLING.getLocation();
-					EventHandler.chosenSound = SoundEvents.NOTE_BLOCK_PLING;
-					Reference.LOGGER.warn("Could not locate the following sound: " + soundLocation + ". Perhaps you misspelled it. Falling back to default!");
-				}
-			}
-		}
 	}
 }

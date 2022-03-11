@@ -6,7 +6,6 @@ import me.shedaniel.autoconfig.annotation.Config;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.BoundedDiscrete;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
-import net.minecraft.ChatFormatting;
 
 @Config(name = Reference.MOD_ID)
 public class DurabilityConfig implements ConfigData {
@@ -31,8 +30,8 @@ public class DurabilityConfig implements ConfigData {
 		@Comment("Change this option to let it not display a chat message (if you have sound enabled) [default: true]")
 		public boolean sendMessage = true;
 
-		@Comment("Change this option to change the color / formatting of the message (if you have mesages enabled) [default: YELLOW]")
-		public ChatFormatting messageColor = ChatFormatting.YELLOW;
+		@Comment("Change this option to change the color / formatting of the message (if you have messages enabled) [default: YELLOW]")
+		public String messageColor = "YELLOW";
 	}
 
 	public static class Sound {
