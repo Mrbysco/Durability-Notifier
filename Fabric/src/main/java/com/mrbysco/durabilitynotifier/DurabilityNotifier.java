@@ -1,6 +1,7 @@
 package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.callback.ClickAirCallback;
+import com.mrbysco.durabilitynotifier.callback.PlayerTickCallback;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -9,6 +10,8 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 
 import java.io.IOException;
 import java.nio.file.FileSystems;
@@ -77,6 +80,19 @@ public class DurabilityNotifier implements ClientModInitializer {
 
 		ClickAirCallback.EVENT.register((player, hand) -> {
 			EventHandler.checkDurability(player.getItemInHand(hand), player);
+			return InteractionResult.PASS;
+		});
+
+		PlayerTickCallback.EVENT.register((player) -> {
+			Level level = player.level;
+			if (level.isClientSide && player.level.getGameTime() % 80 == 0) {
+				if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+				if(DurabilityNotifier.config.general.checkArmor) {
+					for(ItemStack itemStack : player.getInventory().armor) {
+						EventHandler.checkDurability(itemStack, player);
+					}
+				}
+			}
 			return InteractionResult.PASS;
 		});
 	}

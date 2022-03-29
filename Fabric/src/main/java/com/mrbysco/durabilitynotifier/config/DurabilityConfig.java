@@ -24,6 +24,9 @@ public class DurabilityConfig implements ConfigData {
 		@Comment("Sets the percentage the mod checks for [default: 10] (1 to 100)")
 		@BoundedDiscrete(min = 0, max = 100)
 		public int percentage = 10;
+
+		@Comment("Dictates if it should also actively check armor [default: false]")
+		public boolean checkArmor = false;
 	}
 
 	public static class Message {

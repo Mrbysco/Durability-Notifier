@@ -13,10 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.UUID;
 
 public class EventHandler {
-	public static float soundVolume = 0.6f;
-//	public static ResourceLocation soundLocation = SoundEvents.NOTE_BLOCK_PLING.getLocation();
-//	public static SoundEvent chosenSound = SoundEvents.NOTE_BLOCK_PLING;
-
 	public static void checkDurability(ItemStack stack, Player player) {
 		double DurabilityChecking = 1 - (Services.PLATFORM.getPercentage() / 100.0);
 

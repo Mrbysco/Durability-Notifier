@@ -19,6 +19,7 @@ public class DurabilityConfig {
 		//General
 		public final IntValue Percentage;
 		public final BooleanValue SendMessage;
+		public final BooleanValue CheckArmor;
 		public final EnumValue<ChatFormatting> SentMessageColor;
 		public final BooleanValue PlaySound;
 
@@ -37,6 +38,10 @@ public class DurabilityConfig {
 			SendMessage = builder
 					.comment("Change this option to let it not display a chat message (if you have sound enabled) [default: true]")
 					.define("SendMessage", true);
+
+			CheckArmor = builder
+					.comment("Dictates if it should also actively check armor [default: false]")
+					.define("CheckArmor", false);
 
 			SentMessageColor = builder
 					.comment("Change this option to change the color / formatting of the message (if you have messages enabled) [default: YELLOW]")

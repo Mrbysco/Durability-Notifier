@@ -3,7 +3,11 @@ package com.mrbysco.durabilitynotifier;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.TickEvent.Phase;
+import net.minecraftforge.event.TickEvent.PlayerTickEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
@@ -26,6 +30,7 @@ public class DurabilityNotifier {
 		MinecraftForge.EVENT_BUS.addListener(this::onLeftClickBlock);
 		MinecraftForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
 		MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
+		MinecraftForge.EVENT_BUS.addListener(this::onInventoryTick);
 
 		//Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
 		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () ->
@@ -52,5 +57,20 @@ public class DurabilityNotifier {
 		ItemStack itemStack = event.getItemStack();
 		Player player = event.getPlayer();
 		EventHandler.checkDurability(itemStack, player);
+	}
+
+	private void onInventoryTick(final PlayerTickEvent event) {
+		if(event.phase == TickEvent.Phase.START)
+			return;
+
+		Player player = event.player;
+		Level level = player.level;
+		if (level.isClientSide && player.level.getGameTime() % 80 == 0) {
+			if(DurabilityConfig.CLIENT.CheckArmor.get()) {
+				for(ItemStack itemStack : player.getInventory().armor) {
+					EventHandler.checkDurability(itemStack, player);
+				}
+			}
+		}
 	}
 }
