@@ -8,6 +8,7 @@ import me.shedaniel.autoconfig.ConfigHolder;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
+import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -83,12 +84,18 @@ public class DurabilityNotifier implements ClientModInitializer {
 			return InteractionResult.PASS;
 		});
 
+		AttackEntityCallback.EVENT.register((player, world, hand, entity, hitResult) -> {
+			EventHandler.checkDurability(player.getItemInHand(hand), player);
+			return InteractionResult.PASS;
+		});
+
 		PlayerTickCallback.EVENT.register((player) -> {
 			Level level = player.level;
 			if (level.isClientSide && player.level.getGameTime() % 80 == 0) {
-				if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
-				if(DurabilityNotifier.config.general.checkArmor) {
-					for(ItemStack itemStack : player.getInventory().armor) {
+				if (DurabilityNotifier.config == null)
+					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+				if (DurabilityNotifier.config.general.checkArmor) {
+					for (ItemStack itemStack : player.getInventory().armor) {
 						EventHandler.checkDurability(itemStack, player);
 					}
 				}

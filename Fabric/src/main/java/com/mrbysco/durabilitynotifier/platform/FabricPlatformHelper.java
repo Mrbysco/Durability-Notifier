@@ -15,43 +15,50 @@ public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
 	public int getPercentage() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return DurabilityNotifier.config.general.percentage;
 	}
 
 	@Override
 	public boolean getSendMessage() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return DurabilityNotifier.config.message.sendMessage;
 	}
 
 	@Override
 	public ChatFormatting getMessageColor() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return ChatFormatting.getByName(DurabilityNotifier.config.message.messageColor);
 	}
 
 	@Override
 	public boolean getPlaySound() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return DurabilityNotifier.config.sound.playSound;
 	}
 
 	@Override
 	public float getSoundVolume() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return (float) DurabilityNotifier.config.sound.volume;
 	}
 
 	@Override
 	public String getSoundLocation() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return DurabilityNotifier.config.sound.soundLocation;
 	}
 
 	@Override
 	public SoundEvent getChosenSound() {
-		if(DurabilityNotifier.config == null) DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		ResourceLocation soundLocation = ResourceLocation.tryParse(DurabilityNotifier.config.sound.soundLocation);
 		if (soundLocation != null) {
 			SoundEvent sound = Registry.SOUND_EVENT.get(soundLocation);
