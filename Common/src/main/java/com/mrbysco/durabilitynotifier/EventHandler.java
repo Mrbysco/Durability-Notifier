@@ -21,7 +21,7 @@ public class EventHandler {
 	}
 
 	public static void checkDurability(ItemStack stack, Player playerIn, double checkNumber) {
-		if (stack != null && stack.getMaxDamage() != 0) {
+		if (stack != null && stack.isDamageableItem() && stack.getMaxDamage() != 0) {
 			if (((double) stack.getDamageValue() / stack.getMaxDamage()) > checkNumber) {
 				if (Services.PLATFORM.getSendMessage()) {
 					sendMessage(playerIn, stack);
