@@ -15,7 +15,7 @@ public class CooldownUtil {
 
 	public static boolean isNotOnCooldown(ItemStack stack, long time) {
 		if (isAvailable(stack, time)) {
-			cooldownMap.put(stack, System.currentTimeMillis());
+			putOnCooldown(stack);
 			return true;
 		} else {
 			return false;

@@ -2,9 +2,8 @@ package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.platform.Services;
 import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
@@ -45,10 +44,10 @@ public class EventHandler {
 			messageColor = ChatFormatting.YELLOW;
 			Reference.LOGGER.warn("Invalid chat color found in config, please check the config");
 		}
-		MutableComponent part1 = new TranslatableComponent("durabilitynotifier.warning.part1", stack.getDisplayName()).withStyle(messageColor);
-		MutableComponent part2 = new TranslatableComponent("durabilitynotifier.warning.part2").withStyle(messageColor);
-		MutableComponent percentage = new TextComponent(Services.PLATFORM.getPercentage() + "%" + " ").withStyle(ChatFormatting.RED);
-		MutableComponent part3 = new TranslatableComponent("durabilitynotifier.warning.part3").withStyle(messageColor);
+		MutableComponent part1 = Component.translatable("durabilitynotifier.warning.part1", stack.getDisplayName()).withStyle(messageColor);
+		MutableComponent part2 = Component.translatable("durabilitynotifier.warning.part2").withStyle(messageColor);
+		MutableComponent percentage = Component.literal(Services.PLATFORM.getPercentage() + "%" + " ").withStyle(ChatFormatting.RED);
+		MutableComponent part3 = Component.translatable("durabilitynotifier.warning.part3").withStyle(messageColor);
 		player.displayClientMessage(part1.append(part2).append(percentage).append(part3), true);
 	}
 
