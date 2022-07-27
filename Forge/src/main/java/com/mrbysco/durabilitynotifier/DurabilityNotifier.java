@@ -41,19 +41,19 @@ public class DurabilityNotifier {
 	// It takes Forge's event object and passes the parameters along to
 	// the Common listener.
 	private void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
-		EventHandler.checkDurability(event.getItemStack(), event.getPlayer());
+		EventHandler.checkDurability(event.getItemStack(), event.getEntity());
 	}
 
 	private void onLeftClickEmpty(final PlayerInteractEvent.LeftClickEmpty event) {
-		EventHandler.checkDurability(event.getItemStack(), event.getPlayer());
+		EventHandler.checkDurability(event.getItemStack(), event.getEntity());
 	}
 
 	private void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
-		EventHandler.checkDurability(event.getItemStack(), event.getPlayer());
+		EventHandler.checkDurability(event.getItemStack(), event.getEntity());
 	}
 
 	private void onAttackEntity(final AttackEntityEvent event) {
-		Player player = event.getPlayer();
+		final Player player = event.getEntity();
 		EventHandler.checkDurability(player.getMainHandItem(), player);
 	}
 
