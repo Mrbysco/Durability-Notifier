@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[41,)"
+loaderVersion = "[44,)"
 issueTrackerURL = "https://minecraft.curseforge.com/projects/durability-notifier/issues"
 license = "MIT"
 
@@ -14,12 +14,6 @@ description = '''A minecraft mod that notifies you when your durability gets at 
 [[dependencies.durabilitynotifier]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19,1.20)"
-ordering = "NONE"
-side = "BOTH"
-[[dependencies.durabilitynotifier]]
-modId = "forge"
-mandatory = true
-versionRange = "[41.1.0,)"
+versionRange = "[1.19.3,1.20)"
 ordering = "NONE"
 side = "BOTH"
