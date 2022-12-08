@@ -28,9 +28,6 @@ public class DurabilityNotifier implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-		// Use Fabric to bootstrap the Common mod.
-		CommonClass.init();
-
 		ConfigHolder<DurabilityConfig> holder = AutoConfig.register(DurabilityConfig.class, Toml4jConfigSerializer::new);
 		config = holder.getConfig();
 		try {

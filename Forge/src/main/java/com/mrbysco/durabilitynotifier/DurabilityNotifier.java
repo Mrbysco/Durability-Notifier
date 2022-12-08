@@ -23,10 +23,6 @@ public class DurabilityNotifier {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
 		FMLJavaModLoadingContext.get().getModEventBus().register(DurabilityConfig.class);
 
-		CommonClass.init();
-
-		// Some code like events require special initialization from the
-		// loader specific code.
 		MinecraftForge.EVENT_BUS.addListener(this::onLeftClickBlock);
 		MinecraftForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
 		MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
@@ -37,9 +33,6 @@ public class DurabilityNotifier {
 		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> "Trans Rights Are Human Rights", (remoteVersionString, networkBool) -> networkBool));
 	}
 
-	// This method exists as a wrapper for the code in the Common project.
-	// It takes Forge's event object and passes the parameters along to
-	// the Common listener.
 	private void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {
 		EventHandler.checkDurability(event.getItemStack(), event.getEntity());
 	}
