@@ -50,7 +50,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 				return sound;
 			} else {
 				Reference.LOGGER.warn("Could not locate the following sound: " + soundLocation + ". Perhaps you misspelled it. Falling back to default!");
-				return SoundEvents.NOTE_BLOCK_PLING;
+				return SoundEvents.NOTE_BLOCK_PLING.value();
 			}
 		}
 		return null;
