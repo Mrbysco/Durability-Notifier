@@ -6,7 +6,7 @@ import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import com.mrbysco.durabilitynotifier.platform.services.IPlatformHelper;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -61,12 +61,12 @@ public class FabricPlatformHelper implements IPlatformHelper {
 			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		ResourceLocation soundLocation = ResourceLocation.tryParse(DurabilityNotifier.config.sound.soundLocation);
 		if (soundLocation != null) {
-			SoundEvent sound = Registry.SOUND_EVENT.get(soundLocation);
+			SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(soundLocation);
 			if (sound != null) {
 				return sound;
 			} else {
 				Reference.LOGGER.warn("Could not locate the following sound: " + soundLocation + ". Perhaps you misspelled it. Falling back to default!");
-				return SoundEvents.NOTE_BLOCK_PLING;
+				return SoundEvents.NOTE_BLOCK_PLING.value();
 			}
 		}
 		return null;
