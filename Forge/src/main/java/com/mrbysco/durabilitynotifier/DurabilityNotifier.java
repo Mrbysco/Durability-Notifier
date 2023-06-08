@@ -58,7 +58,7 @@ public class DurabilityNotifier {
 		if (event.phase == TickEvent.Phase.START) return;
 
 		Player player = event.player;
-		if (player.level.getGameTime() % 80 == 0) {
+		if (player.level().getGameTime() % 80 == 0) {
 			if (DurabilityConfig.CLIENT.CheckArmor.get()) {
 				for (ItemStack itemStack : player.getInventory().armor) {
 					EventHandler.checkDurability(itemStack, player);

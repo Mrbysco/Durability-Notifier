@@ -87,8 +87,8 @@ public class DurabilityNotifier implements ClientModInitializer {
 		});
 
 		PlayerTickCallback.EVENT.register((player) -> {
-			Level level = player.level;
-			if (level.isClientSide && player.level.getGameTime() % 80 == 0) {
+			Level level = player.level();
+			if (level.isClientSide && level.getGameTime() % 80 == 0) {
 				if (DurabilityNotifier.config == null)
 					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 				if (DurabilityNotifier.config.general.checkArmor) {

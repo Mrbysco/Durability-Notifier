@@ -1,19 +1,19 @@
 modLoader = "javafml"
-loaderVersion = "[45,)"
-issueTrackerURL = "https://minecraft.curseforge.com/projects/durability-notifier/issues"
+loaderVersion = "[46,)"
+issueTrackerURL = "https://github.com/Mrbysco/durability-notifier/issues"
 license = "MIT"
 
 [[mods]]
 modId = "durabilitynotifier"
 version = "${file.jarVersion}"
 displayName = "Durability Notifier"
-displayURL = "https://minecraft.curseforge.com/projects/durability-notifier"
+displayURL = "https://www.curseforge.com/minecraft/mc-mods/durability-notifier"
 authors = "Mrbysco"
 description = '''A minecraft mod that notifies you when your durability gets at a certain percentage'''
 
 [[dependencies.durabilitynotifier]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.4,1.20)"
+versionRange = "[1.20,1.21)"
 ordering = "NONE"
 side = "BOTH"

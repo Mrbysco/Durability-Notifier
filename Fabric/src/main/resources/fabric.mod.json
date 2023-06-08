@@ -5,36 +5,36 @@
   "name": "Durability Notifier",
   "description": "A minecraft mod that notifies you when your durability gets at a certain percentage",
   "authors": [
-	"Mrbysco"
+    "Mrbysco"
   ],
   "contact": {
-	"homepage": "https://www.curseforge.com/minecraft/mc-mods/durability-notifier",
-	"sources": "https://github.com/Mrbysco/durability-notifier",
-	"issues": "https://github.com/Mrbysco/durability-notifier/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/durability-notifier",
+    "sources": "https://github.com/Mrbysco/durability-notifier",
+    "issues": "https://github.com/Mrbysco/durability-notifier/issues"
   },
   "license": "MIT",
   "icon": "assets/durabilitynotifier/icon.png",
   "environment": "*",
   "entrypoints": {
-	"client": [
-	  "com.mrbysco.durabilitynotifier.DurabilityNotifier"
-	],
-	"modmenu": [
-	  "com.mrbysco.durabilitynotifier.config.DurabilityModMenuIntegration"
-	]
+    "client": [
+      "com.mrbysco.durabilitynotifier.DurabilityNotifier"
+    ],
+    "modmenu": [
+      "com.mrbysco.durabilitynotifier.config.DurabilityModMenuIntegration"
+    ]
   },
   "mixins": [
-	"durabilitynotifier.mixins.json"
+    "durabilitynotifier.mixins.json"
   ],
   "depends": {
-	"fabricloader": ">=0.14",
-	"fabric": "*",
-	"minecraft": ">=1.19.4",
-	"java": ">=17",
-	"cloth-config": ">=10.0.96"
+    "fabricloader": ">=0.14",
+    "fabric": "*",
+    "minecraft": "~1.20",
+    "java": ">=17",
+    "cloth-config": ">=11.0.99"
   },
   "suggests": {
-	"another-mod": "*"
+    "another-mod": "*"
   }
 }
   
