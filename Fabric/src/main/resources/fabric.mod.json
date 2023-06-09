@@ -32,9 +32,6 @@
     "minecraft": "~1.20",
     "java": ">=17",
     "cloth-config": ">=11.0.99"
-  },
-  "suggests": {
-    "another-mod": "*"
   }
 }
   
