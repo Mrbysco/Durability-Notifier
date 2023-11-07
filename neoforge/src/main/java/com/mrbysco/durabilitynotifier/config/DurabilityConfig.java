@@ -3,31 +3,26 @@ package com.mrbysco.durabilitynotifier.config;
 import com.mrbysco.durabilitynotifier.Reference;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
-import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
-import net.minecraftforge.common.ForgeConfigSpec.EnumValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class DurabilityConfig {
 
 	public static class Client {
 		//General
-		public final IntValue Percentage;
-		public final BooleanValue SendMessage;
-		public final BooleanValue CheckArmor;
-		public final EnumValue<ChatFormatting> SentMessageColor;
-		public final BooleanValue PlaySound;
+		public final ModConfigSpec.IntValue Percentage;
+		public final ModConfigSpec.BooleanValue SendMessage;
+		public final ModConfigSpec.BooleanValue CheckArmor;
+		public final ModConfigSpec.EnumValue<ChatFormatting> SentMessageColor;
+		public final ModConfigSpec.BooleanValue PlaySound;
 
 		//Sound
-		public final ConfigValue<String> soundlocation;
-		public final DoubleValue volume;
+		public final ModConfigSpec.ConfigValue<String> soundlocation;
+		public final ModConfigSpec.DoubleValue volume;
 
-		Client(ForgeConfigSpec.Builder builder) {
+		Client(net.neoforged.neoforge.common.ModConfigSpec.Builder builder) {
 			builder.comment("General settings")
 					.push("general");
 
@@ -68,11 +63,11 @@ public class DurabilityConfig {
 		}
 	}
 
-	public static final ForgeConfigSpec clientSpec;
+	public static final net.neoforged.neoforge.common.ModConfigSpec clientSpec;
 	public static final Client CLIENT;
 
 	static {
-		final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+		final Pair<Client, net.neoforged.neoforge.common.ModConfigSpec> specPair = new net.neoforged.neoforge.common.ModConfigSpec.Builder().configure(Client::new);
 		clientSpec = specPair.getRight();
 		CLIENT = specPair.getLeft();
 	}

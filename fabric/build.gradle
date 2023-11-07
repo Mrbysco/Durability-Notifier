@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'maven-publish'
     id 'fabric-loom'
-    id 'com.matthewprenger.cursegradle'
+    id 'net.darkhax.curseforgegradle'
     id 'com.modrinth.minotaur'
 }
 
@@ -59,6 +59,7 @@ loom {
     }
 }
 
+
 tasks.withType(JavaCompile).configureEach {
     source(project(":common").sourceSets.main.allSource)
 }
@@ -97,32 +98,24 @@ publishing {
 }
 
 if (System.getenv().CURSEFORGE_KEY) {
-    curseforge {
-        apiKey = System.getenv().CURSEFORGE_KEY
-        project {
-            id = project.curseforge_id
-            releaseType = "beta"
-            addGameVersion "Fabric"
-            addGameVersion "${minecraft_version}"
-            addGameVersion "Java 17"
-            mainArtifact(remapJar)
-            changelog = file("$project.rootDir/changelog.md")
-            changelogType = 'markdown'
+    task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+        apiToken = System.getenv().CURSEFORGE_KEY
 
-            relations {
-                requiredDependency "fabric-api"
-                requiredDependency "cloth-config"
-            }
-        }
+        def mainFile = upload(project.curseforge_id, remapJar)
+        mainFile.releaseType = 'beta'
+        mainFile.addGameVersion "Fabric"
+        mainFile.addGameVersion "${minecraft_version}"
+        mainFile.addGameVersion "Java 17"
 
-        options {
-            forgeGradleIntegration = false
-        }
+        mainFile.changelog = file("$project.rootDir/changelog.md")
+        mainFile.changelogType = 'markdown'
+
+        mainFile.addRequirement("fabric-api")
+//        mainFile.addOptional()
     }
 }
 
 if (System.getenv().MODRINTH_KEY) {
-    String fileContents = file("$project.rootDir/changelog.md").text
     modrinth {
         token = System.getenv().MODRINTH_KEY
         projectId = project.modrinth_id
@@ -130,13 +123,12 @@ if (System.getenv().MODRINTH_KEY) {
         versionName = "${mod_name} ${minecraft_version}"
         versionNumber = project.version
         uploadFile = remapJar
-        changelog = fileContents
+        changelog = file("$project.rootDir/changelog.md").text
         gameVersions = ["${minecraft_version}"]
         loaders = ["fabric"]
 
         dependencies {
             required.project "fabric-api"
-            required.project "cloth-config"
         }
     }
 }

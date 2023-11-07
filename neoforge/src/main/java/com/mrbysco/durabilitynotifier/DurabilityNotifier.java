@@ -3,19 +3,18 @@ package com.mrbysco.durabilitynotifier;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.TickEvent.PlayerTickEvent;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.IExtensionPoint;
-import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.fml.IExtensionPoint;
+import net.neoforged.fml.IExtensionPoint.DisplayTest;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 @Mod(Reference.MOD_ID)
 public class DurabilityNotifier {
@@ -24,13 +23,13 @@ public class DurabilityNotifier {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
 		FMLJavaModLoadingContext.get().getModEventBus().register(DurabilityConfig.class);
 
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-			MinecraftForge.EVENT_BUS.addListener(this::onLeftClickBlock);
-			MinecraftForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
-			MinecraftForge.EVENT_BUS.addListener(this::onRightClickBlock);
-			MinecraftForge.EVENT_BUS.addListener(this::onAttackEntity);
-			MinecraftForge.EVENT_BUS.addListener(this::onInventoryTick);
-		});
+		if (FMLEnvironment.dist == Dist.CLIENT) {
+			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);
+			NeoForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
+			NeoForge.EVENT_BUS.addListener(this::onRightClickBlock);
+			NeoForge.EVENT_BUS.addListener(this::onAttackEntity);
+			NeoForge.EVENT_BUS.addListener(this::onInventoryTick);
+		}
 
 		//Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
 		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () ->
@@ -55,7 +54,7 @@ public class DurabilityNotifier {
 	}
 
 	private void onInventoryTick(final PlayerTickEvent event) {
-		if (event.phase == TickEvent.Phase.START) return;
+		if (event.phase == net.neoforged.neoforge.event.TickEvent.Phase.START) return;
 
 		Player player = event.player;
 		if (player.level().getGameTime() % 80 == 0) {
