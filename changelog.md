@@ -1,1 +1,1 @@
-* Initial update to 1.20
+* Initial update to 1.20.2
