@@ -4,10 +4,10 @@ import com.mrbysco.durabilitynotifier.Reference;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import com.mrbysco.durabilitynotifier.platform.services.IPlatformHelper;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.neoforged.neoforge.registries.ForgeRegistries;
 
 public class ForgePlatformHelper implements IPlatformHelper {
 
@@ -45,7 +45,7 @@ public class ForgePlatformHelper implements IPlatformHelper {
 	public SoundEvent getChosenSound() {
 		ResourceLocation soundLocation = ResourceLocation.tryParse(DurabilityConfig.CLIENT.soundlocation.get());
 		if (soundLocation != null) {
-			SoundEvent sound = ForgeRegistries.SOUND_EVENTS.getValue(soundLocation);
+			SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(soundLocation);
 			if (sound != null) {
 				return sound;
 			} else {
