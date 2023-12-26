@@ -1,7 +1,6 @@
 package com.mrbysco.durabilitynotifier.platform.services;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.sounds.SoundEvent;
 
 public interface IPlatformHelper {
 
@@ -34,10 +33,5 @@ public interface IPlatformHelper {
 	 * Get the soundLocation config value
 	 */
 	String getSoundLocation();
-
-	/**
-	 * Get the chosen sound based on the configured soundLocation
-	 */
-	SoundEvent getChosenSound();
 
 }

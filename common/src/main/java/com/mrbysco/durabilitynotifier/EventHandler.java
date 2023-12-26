@@ -2,8 +2,10 @@ package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.platform.Services;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Player;
@@ -52,11 +54,25 @@ public class EventHandler {
 	}
 
 	public static void playSound(Player player) {
-		SoundEvent chosenSound = Services.PLATFORM.getChosenSound();
+		SoundEvent chosenSound = getChosenSound();
 		if (chosenSound != null) {
 			player.playSound(chosenSound, Services.PLATFORM.getSoundVolume(), 1F);
 		} else {
-			Reference.LOGGER.warn("Could not locate the following sound: {}. Perhaps you misspelled it.", Services.PLATFORM.getChosenSound());
+			Reference.LOGGER.warn("Could not locate the following sound: {}. Perhaps you misspelled it.", Services.PLATFORM.getSoundLocation());
 		}
+	}
+
+	private static SoundEvent getChosenSound() {
+		ResourceLocation soundLocation = ResourceLocation.tryParse(Services.PLATFORM.getSoundLocation());
+		if (soundLocation != null) {
+			SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(soundLocation);
+			if (sound != null) {
+				return sound;
+			} else {
+				Reference.LOGGER.warn("Could not locate the following sound: " + soundLocation + ". Perhaps you misspelled it. Falling back to default!");
+				return SoundEvents.NOTE_BLOCK_PLING.value();
+			}
+		}
+		return null;
 	}
 }

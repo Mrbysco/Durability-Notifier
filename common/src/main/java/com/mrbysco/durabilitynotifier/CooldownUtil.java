@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CooldownUtil {
-	public static Map<ItemStack, Long> cooldownMap = Collections.synchronizedMap(new HashMap<>());
+	public static final Map<ItemStack, Long> cooldownMap = Collections.synchronizedMap(new HashMap<>());
 
 	public static void putOnCooldown(ItemStack stack) {
 		cooldownMap.put(stack, System.currentTimeMillis());

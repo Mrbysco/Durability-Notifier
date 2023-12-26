@@ -4,12 +4,12 @@ import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.IExtensionPoint;
 import net.neoforged.fml.IExtensionPoint.DisplayTest;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
@@ -19,9 +19,9 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 @Mod(Reference.MOD_ID)
 public class DurabilityNotifier {
 
-	public DurabilityNotifier() {
+	public DurabilityNotifier(IEventBus eventBus) {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
-		FMLJavaModLoadingContext.get().getModEventBus().register(DurabilityConfig.class);
+		eventBus.register(DurabilityConfig.class);
 
 		if (FMLEnvironment.dist == Dist.CLIENT) {
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);
