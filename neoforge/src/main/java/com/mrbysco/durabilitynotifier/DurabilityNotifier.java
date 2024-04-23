@@ -5,12 +5,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.IExtensionPoint;
-import net.neoforged.fml.IExtensionPoint.DisplayTest;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
@@ -19,21 +16,17 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 @Mod(Reference.MOD_ID)
 public class DurabilityNotifier {
 
-	public DurabilityNotifier(IEventBus eventBus) {
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
+	public DurabilityNotifier(IEventBus eventBus, Dist dist, ModContainer container) {
+		container.registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
 		eventBus.register(DurabilityConfig.class);
 
-		if (FMLEnvironment.dist == Dist.CLIENT) {
+		if (dist == Dist.CLIENT) {
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
 			NeoForge.EVENT_BUS.addListener(this::onRightClickBlock);
 			NeoForge.EVENT_BUS.addListener(this::onAttackEntity);
 			NeoForge.EVENT_BUS.addListener(this::onInventoryTick);
 		}
-
-		//Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
-		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () ->
-				new IExtensionPoint.DisplayTest(() -> "Trans Rights Are Human Rights", (remoteVersionString, networkBool) -> networkBool));
 	}
 
 	private void onLeftClickBlock(final PlayerInteractEvent.LeftClickBlock event) {

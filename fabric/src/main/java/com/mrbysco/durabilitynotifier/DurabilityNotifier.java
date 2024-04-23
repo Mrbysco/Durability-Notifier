@@ -23,7 +23,6 @@ import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 
 public class DurabilityNotifier implements ClientModInitializer {
-	private Thread watchThread = null;
 	public static DurabilityConfig config;
 
 	@Override
@@ -33,7 +32,7 @@ public class DurabilityNotifier implements ClientModInitializer {
 		try {
 			var watchService = FileSystems.getDefault().newWatchService();
 			Paths.get("config").register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-			watchThread = new Thread(() -> {
+			Thread watchThread = new Thread(() -> {
 				WatchKey key;
 				try {
 					while ((key = watchService.take()) != null) {

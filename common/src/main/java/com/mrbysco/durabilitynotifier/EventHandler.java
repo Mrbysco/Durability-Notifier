@@ -31,7 +31,7 @@ public class EventHandler {
 				if (Services.PLATFORM.getPlaySound() && CooldownUtil.isNotOnCooldown(stack, 500L)) {
 					//This guy really wanted something special. So explosion sounds it is.
 					if (playerIn != null && playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
-						playerIn.playSound(SoundEvents.GENERIC_EXPLODE, 1F, 1F);
+						playerIn.playSound(SoundEvents.GENERIC_EXPLODE.value(), 1F, 1F);
 					}
 
 					playSound(playerIn);

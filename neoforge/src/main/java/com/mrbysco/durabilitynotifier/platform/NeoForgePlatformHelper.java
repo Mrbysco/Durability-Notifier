@@ -4,7 +4,7 @@ import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import com.mrbysco.durabilitynotifier.platform.services.IPlatformHelper;
 import net.minecraft.ChatFormatting;
 
-public class ForgePlatformHelper implements IPlatformHelper {
+public class NeoForgePlatformHelper implements IPlatformHelper {
 
 	@Override
 	public int getPercentage() {
