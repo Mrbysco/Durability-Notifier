@@ -9,9 +9,9 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.TickEvent.PlayerTickEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @Mod(Reference.MOD_ID)
 public class DurabilityNotifier {
@@ -46,10 +46,8 @@ public class DurabilityNotifier {
 		EventHandler.checkDurability(player.getMainHandItem(), player);
 	}
 
-	private void onInventoryTick(final PlayerTickEvent event) {
-		if (event.phase == net.neoforged.neoforge.event.TickEvent.Phase.START) return;
-
-		Player player = event.player;
+	private void onInventoryTick(final PlayerTickEvent.Post event) {
+		Player player = event.getEntity();
 		if (player.level().getGameTime() % 80 == 0 && DurabilityConfig.CLIENT.CheckArmor.get()) {
 			for (ItemStack itemStack : player.getInventory().armor) {
 				EventHandler.checkDurability(itemStack, player);

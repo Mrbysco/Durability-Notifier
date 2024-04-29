@@ -20,6 +20,6 @@ side = "BOTH"
 [[dependencies.durabilitynotifier]]
 modId = "neoforge"
 type = "REQUIRED"
-versionRange = "[20.5.0-beta,)"
+versionRange = "[20.5.14-beta,)"
 ordering = "NONE"
 side = "BOTH"
