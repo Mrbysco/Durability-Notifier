@@ -52,7 +52,7 @@ public class DurabilityConfig {
 
 			soundlocation = builder
 					.comment("Change this option to change the color / formatting of the message (if you have sound enabled) [default: minecraft:block.note_block.pling]")
-					.define("soundlocation", "minecraft:block.note_block.pling", o -> (o instanceof String loc) && ResourceLocation.isValidResourceLocation(loc));
+					.define("soundlocation", "minecraft:block.note_block.pling", o -> (o instanceof String loc) && ResourceLocation.tryParse(loc) != null);
 
 			volume = builder
 					.comment("Sets the sound volume [default: 0.6] (0 to 1.0)")

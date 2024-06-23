@@ -17,10 +17,10 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 public class DurabilityNotifier {
 
 	public DurabilityNotifier(IEventBus eventBus, Dist dist, ModContainer container) {
-		container.registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
-		eventBus.register(DurabilityConfig.class);
+		if (dist.isClient()) {
+			container.registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
+			eventBus.register(DurabilityConfig.class);
 
-		if (dist == Dist.CLIENT) {
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
 			NeoForge.EVENT_BUS.addListener(this::onRightClickBlock);
