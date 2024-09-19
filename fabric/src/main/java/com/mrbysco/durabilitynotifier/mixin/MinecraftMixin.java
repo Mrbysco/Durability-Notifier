@@ -19,6 +19,6 @@ public class MinecraftMixin {
 
 	@Inject(method = "startAttack", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;resetAttackStrengthTicker()V", ordinal = 0))
 	private void leftClickAir(CallbackInfoReturnable<Boolean> cir) {
-		ClickAirCallback.EVENT.invoker().interact(player, InteractionHand.MAIN_HAND);
+		ClickAirCallback.LEFT_CLICK_EVENT.invoker().interact(player, InteractionHand.MAIN_HAND);
 	}
 }

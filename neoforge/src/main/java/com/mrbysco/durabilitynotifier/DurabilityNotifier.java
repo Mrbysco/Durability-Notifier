@@ -24,6 +24,7 @@ public class DurabilityNotifier {
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickEmpty);
 			NeoForge.EVENT_BUS.addListener(this::onRightClickBlock);
+			NeoForge.EVENT_BUS.addListener(this::onRightClickEmpty);
 			NeoForge.EVENT_BUS.addListener(this::onAttackEntity);
 			NeoForge.EVENT_BUS.addListener(this::onInventoryTick);
 		}
@@ -38,6 +39,10 @@ public class DurabilityNotifier {
 	}
 
 	private void onRightClickBlock(final PlayerInteractEvent.RightClickBlock event) {
+		EventHandler.checkDurability(event.getItemStack(), event.getEntity());
+	}
+
+	private void onRightClickEmpty(final PlayerInteractEvent.RightClickItem event) {
 		EventHandler.checkDurability(event.getItemStack(), event.getEntity());
 	}
 

@@ -7,7 +7,21 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 
 public interface ClickAirCallback {
-	Event<ClickAirCallback> EVENT = EventFactory.createArrayBacked(ClickAirCallback.class,
+	Event<ClickAirCallback> LEFT_CLICK_EVENT = EventFactory.createArrayBacked(ClickAirCallback.class,
+			(listeners) -> (player, hand) -> {
+				for (ClickAirCallback event : listeners) {
+					InteractionResult result = event.interact(player, hand);
+
+					if (result != InteractionResult.PASS) {
+						return result;
+					}
+				}
+
+				return InteractionResult.PASS;
+			}
+	);
+
+	Event<ClickAirCallback> RIGHT_CLICK_EVENT = EventFactory.createArrayBacked(ClickAirCallback.class,
 			(listeners) -> (player, hand) -> {
 				for (ClickAirCallback event : listeners) {
 					InteractionResult result = event.interact(player, hand);

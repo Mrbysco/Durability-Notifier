@@ -16,7 +16,6 @@ import java.util.UUID;
 public class EventHandler {
 	public static void checkDurability(ItemStack stack, Player player) {
 		double DurabilityChecking = 1 - (Services.PLATFORM.getPercentage() / 100.0);
-
 		if (!stack.isEmpty())
 			checkDurability(stack, player, DurabilityChecking);
 	}
