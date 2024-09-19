@@ -1,1 +1,1 @@
-* Initial update to 1.21
+* Fix Durability notifications not showing when right-clicking items like bows and fishing rods when targeting the air
