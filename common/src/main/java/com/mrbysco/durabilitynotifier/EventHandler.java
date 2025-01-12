@@ -64,7 +64,7 @@ public class EventHandler {
 	private static SoundEvent getChosenSound() {
 		ResourceLocation soundLocation = ResourceLocation.tryParse(Services.PLATFORM.getSoundLocation());
 		if (soundLocation != null) {
-			SoundEvent sound = BuiltInRegistries.SOUND_EVENT.get(soundLocation);
+			SoundEvent sound = BuiltInRegistries.SOUND_EVENT.getValue(soundLocation);
 			if (sound != null) {
 				return sound;
 			} else {
