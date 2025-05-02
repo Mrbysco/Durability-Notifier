@@ -11,6 +11,8 @@ import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
@@ -97,7 +99,8 @@ public class DurabilityNotifier implements ClientModInitializer {
 				if (DurabilityNotifier.config == null)
 					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 				if (DurabilityNotifier.config.general.checkArmor) {
-					for (ItemStack itemStack : player.getInventory().armor) {
+					for (EquipmentSlot equipmentslot : EquipmentSlotGroup.ARMOR) {
+						ItemStack itemStack = player.getItemBySlot(equipmentslot);
 						EventHandler.checkDurability(itemStack, player);
 					}
 				}
