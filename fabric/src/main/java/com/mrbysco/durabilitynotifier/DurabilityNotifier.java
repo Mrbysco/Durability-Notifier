@@ -97,7 +97,8 @@ public class DurabilityNotifier implements ClientModInitializer {
 				if (DurabilityNotifier.config == null)
 					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 				if (DurabilityNotifier.config.general.checkArmor) {
-					for (ItemStack itemStack : player.getInventory().armor) {
+					for (int slot = 36; slot <= 39; slot++) {
+						ItemStack itemStack = player.getInventory().getItem(slot);
 						EventHandler.checkDurability(itemStack, player);
 					}
 				}
