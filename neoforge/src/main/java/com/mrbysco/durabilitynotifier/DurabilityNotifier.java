@@ -57,7 +57,8 @@ public class DurabilityNotifier {
 	private void onInventoryTick(final PlayerTickEvent.Post event) {
 		Player player = event.getEntity();
 		if (player.level().getGameTime() % 80 == 0 && DurabilityConfig.CLIENT.CheckArmor.get()) {
-			for (ItemStack itemStack : player.getInventory().armor) {
+			for (int slot = 36; slot <= 39; slot++) {
+				ItemStack itemStack = player.getInventory().getItem(slot);
 				EventHandler.checkDurability(itemStack, player);
 			}
 		}
