@@ -1,6 +1,8 @@
 package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -57,8 +59,8 @@ public class DurabilityNotifier {
 	private void onInventoryTick(final PlayerTickEvent.Post event) {
 		Player player = event.getEntity();
 		if (player.level().getGameTime() % 80 == 0 && DurabilityConfig.CLIENT.CheckArmor.get()) {
-			for (int slot = 36; slot <= 39; slot++) {
-				ItemStack itemStack = player.getInventory().getItem(slot);
+			for (EquipmentSlot equipmentslot : EquipmentSlotGroup.ARMOR) {
+				ItemStack itemStack = player.getItemBySlot(equipmentslot);
 				EventHandler.checkDurability(itemStack, player);
 			}
 		}
