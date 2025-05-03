@@ -44,11 +44,13 @@ public class EventHandler {
 			messageColor = ChatFormatting.YELLOW;
 			Reference.LOGGER.warn("Invalid chat color found in config, please check the config");
 		}
-		MutableComponent part1 = Component.translatable("durabilitynotifier.warning.part1", stack.getDisplayName()).withStyle(messageColor);
-		MutableComponent part2 = Component.translatable("durabilitynotifier.warning.part2").withStyle(messageColor);
-		MutableComponent percentage = Component.literal(Services.PLATFORM.getPercentage() + "%" + " ").withStyle(ChatFormatting.RED);
-		MutableComponent part3 = Component.translatable("durabilitynotifier.warning.part3").withStyle(messageColor);
-		player.displayClientMessage(part1.append(part2).append(percentage).append(part3), true);
+		String warningString = Component.translatable("durabilitynotifier.warning").getString();
+		warningString = warningString
+				.replace("%item%", stack.getDisplayName().getString())
+				.replace("%percent%", Services.PLATFORM.getPercentage() + "§c%§r");
+		MutableComponent warning = Component.literal(warningString).withStyle(messageColor);
+
+		player.displayClientMessage(warning, true);
 	}
 
 	public static void playSound(Player player) {
