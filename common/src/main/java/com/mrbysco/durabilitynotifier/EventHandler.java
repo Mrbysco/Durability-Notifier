@@ -8,20 +8,23 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
 public class EventHandler {
-	public static void checkDurability(ItemStack stack, Player player) {
+	public static void checkDurability(@NotNull ItemStack stack, @NotNull Player player) {
 		double DurabilityChecking = 1 - (Services.PLATFORM.getPercentage() / 100.0);
 		if (!stack.isEmpty())
 			checkDurability(stack, player, DurabilityChecking);
 	}
 
-	public static void checkDurability(ItemStack stack, Player playerIn, double checkNumber) {
-		if (stack != null && stack.isDamageableItem() && stack.getMaxDamage() != 0) {
+	public static void checkDurability(@NotNull ItemStack stack, @NotNull Player playerIn, double checkNumber) {
+		if (!stack.isEmpty() && stack.isDamageableItem() && stack.getMaxDamage() != 0) {
 			if (((double) stack.getDamageValue() / stack.getMaxDamage()) > checkNumber) {
 				if (Services.PLATFORM.getSendMessage()) {
 					sendMessage(playerIn, stack);
@@ -29,8 +32,9 @@ public class EventHandler {
 
 				if (Services.PLATFORM.getPlaySound() && CooldownUtil.isNotOnCooldown(stack, 500L)) {
 					//This guy really wanted something special. So explosion sounds it is.
-					if (playerIn != null && playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
-						playerIn.playSound(SoundEvents.GENERIC_EXPLODE.value(), 1F, 1F);
+					if (playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
+						playerIn.level().playLocalSound(playerIn.blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
+								SoundSource.PLAYERS, 1F, 1F, false);
 					}
 
 					playSound(playerIn);
@@ -39,7 +43,7 @@ public class EventHandler {
 		}
 	}
 
-	public static void sendMessage(Player player, ItemStack stack) {
+	public static void sendMessage(@NotNull Player player, @NotNull ItemStack stack) {
 		ChatFormatting messageColor = Services.PLATFORM.getMessageColor();
 		if (messageColor == null) {
 			messageColor = ChatFormatting.YELLOW;
@@ -54,15 +58,16 @@ public class EventHandler {
 		player.displayClientMessage(warning, true);
 	}
 
-	public static void playSound(Player player) {
+	public static void playSound(@NotNull Player player) {
 		SoundEvent chosenSound = getChosenSound();
 		if (chosenSound != null) {
-			player.playSound(chosenSound, Services.PLATFORM.getSoundVolume(), 1F);
+			player.level().playLocalSound(player.blockPosition(), chosenSound, SoundSource.PLAYERS, Services.PLATFORM.getSoundVolume(), 1F, false);
 		} else {
 			Reference.LOGGER.warn("Could not locate the following sound: {}. Perhaps you misspelled it.", Services.PLATFORM.getSoundLocation());
 		}
 	}
 
+	@Nullable
 	private static SoundEvent getChosenSound() {
 		ResourceLocation soundLocation = ResourceLocation.tryParse(Services.PLATFORM.getSoundLocation());
 		if (soundLocation != null) {
@@ -70,7 +75,7 @@ public class EventHandler {
 			if (sound != null) {
 				return sound;
 			} else {
-				Reference.LOGGER.warn("Could not locate the following sound: " + soundLocation + ". Perhaps you misspelled it. Falling back to default!");
+				Reference.LOGGER.warn("Could not locate the following sound: {}. Perhaps you misspelled it. Falling back to default!", soundLocation);
 				return SoundEvents.NOTE_BLOCK_PLING.value();
 			}
 		}
