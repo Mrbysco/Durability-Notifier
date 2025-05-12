@@ -1,2 +1,3 @@
-* Add missing lang keys for the config (when used together with ModMenu) (Fabric)
-* Fix the description of the `soundlocation` config option
+* Add a config option `armorFilter`
+* Adding item ids to the `armorFilter` list will make only those armor items have their durability checked
+* **The config has been reworked on Forge!**
