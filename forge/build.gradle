@@ -68,10 +68,29 @@ minecraft {
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
+repositories {
+    maven {
+        name = "Illusive Soulworks maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly project(":common")
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+
+    compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api"))
+    runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
+
+    runtimeOnly fg.deobf("curse.maven:elytra-slot-317716:5778734")
+    runtimeOnly fg.deobf("curse.maven:caelus-308989:5281700")
 }
 
 tasks.withType(JavaCompile).configureEach {
@@ -126,6 +145,10 @@ if (System.getenv().CURSEFORGE_KEY) {
             mainArtifact(jar)
             changelog = file("$project.rootDir/changelog.md")
             changelogType = 'markdown'
+
+            relations {
+                optionalDependency "curios"
+            }
         }
     }
 }
@@ -142,5 +165,9 @@ if (System.getenv().MODRINTH_KEY) {
         changelog = fileContents
         gameVersions = ["${minecraft_version}"]
         loaders = ["forge"]
+
+        dependencies {
+            optional.project "curios"
+        }
     }
 }
