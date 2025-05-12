@@ -1,3 +1,2 @@
-* Change which playSound method is used which should make it only play for the player
-* Change how the warning message is formatted to allow for greater customization when translating
-* Add missing translation keys for the in-game config (NeoForge)
+* Fix the description of the `soundlocation` config option
+* Enable built-in config screen (NeoForge)
