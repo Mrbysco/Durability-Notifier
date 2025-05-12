@@ -41,7 +41,7 @@ public class DurabilityConfig implements ConfigData {
 		@Comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
 		public boolean playSound = true;
 
-		@Comment("Change this option to change the color / formatting of the message (if you have sound enabled) [default: minecraft:block.note_block.pling]")
+		@Comment("The id of the sound that is played (if you have sound enabled) [default: minecraft:block.note_block.pling]")
 		public String soundLocation = "minecraft:block.note_block.pling";
 
 		@Comment("Sets the sound volume [default: 0.6] (0 to 1.0)")
