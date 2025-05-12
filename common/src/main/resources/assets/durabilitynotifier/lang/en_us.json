@@ -18,5 +18,25 @@
   "text.autoconfig.durabilitynotifier.option.sound": "Sound",
   "text.autoconfig.durabilitynotifier.option.sound.playSound": "Play Sound",
   "text.autoconfig.durabilitynotifier.option.sound.soundLocation": "Sound Location",
-  "text.autoconfig.durabilitynotifier.option.sound.volume": "Volume"
+  "text.autoconfig.durabilitynotifier.option.sound.volume": "Volume",
+
+  "durabilitynotifier.configuration.CheckArmor": "Check Armor",
+  "durabilitynotifier.configuration.CheckArmor.tooltip": "Dictates if it should also actively check armor [default: false]",
+  "durabilitynotifier.configuration.Percentage": "Percentage",
+  "durabilitynotifier.configuration.Percentage.tooltip": "Sets the percentage the mod checks for [default: 10] (1 to 100)",
+  "durabilitynotifier.configuration.PlaySound": "Play Sound",
+  "durabilitynotifier.configuration.PlaySound.tooltip": "Change this option to let it play a sound (configurable in the sound tab) [default: false]",
+  "durabilitynotifier.configuration.SendMessage": "Send Message",
+  "durabilitynotifier.configuration.SendMessage.tooltip": "Change this option to let it not display a chat message (if you have sound enabled) [default: true]",
+  "durabilitynotifier.configuration.SentMessageColor": "Send Message Color",
+  "durabilitynotifier.configuration.SentMessageColor.tooltip": "Change this option to change the color / formatting of the message (if you have messages enabled) [default: YELLOW]",
+  "durabilitynotifier.configuration.general": "General",
+  "durabilitynotifier.configuration.general.tooltip": "General Settings",
+  "durabilitynotifier.configuration.sound": "Sound",
+  "durabilitynotifier.configuration.sound.tooltip": "Sound Settings",
+  "durabilitynotifier.configuration.soundlocation": "Sound Location",
+  "durabilitynotifier.configuration.soundlocation.tooltip": "The id of the sound that is played (if you have sound enabled) [default: minecraft:block.note_block.pling]",
+  "durabilitynotifier.configuration.title": "Durability Notifier Config",
+  "durabilitynotifier.configuration.volume": "Volume",
+  "durabilitynotifier.configuration.volume.tooltip": "Sets the sound volume [default: 0.6] (0 to 1.0)"
 }
