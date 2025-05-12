@@ -19,7 +19,12 @@ repositories {
         url "https://maven.terraformersmc.com/"
         content {
             includeGroup "com.terraformersmc"
+            includeGroup "dev.emi"
         }
+    }
+    maven {
+        name = "Ladysnake Libs"
+        url = 'https://maven.ladysnake.org/releases'
     }
 }
 
@@ -34,6 +39,7 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     modImplementation "com.terraformersmc:modmenu:${mod_menu_version}"
+    modCompileOnly "dev.emi:trinkets:${trinkets_version}" // Can not use modImplementation because it's YARN mapped 🤮
 }
 
 loom {
@@ -112,6 +118,7 @@ if (System.getenv().CURSEFORGE_KEY) {
             relations {
                 requiredDependency "fabric-api"
                 requiredDependency "cloth-config"
+                optionalDependency "trinkets"
             }
         }
 
@@ -137,6 +144,7 @@ if (System.getenv().MODRINTH_KEY) {
         dependencies {
             required.project "fabric-api"
             required.project "cloth-config"
+            optional.project "trinkets"
         }
     }
 }
