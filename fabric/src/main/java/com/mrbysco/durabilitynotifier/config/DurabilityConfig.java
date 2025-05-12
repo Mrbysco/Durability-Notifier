@@ -7,6 +7,8 @@ import me.shedaniel.autoconfig.annotation.ConfigEntry.BoundedDiscrete;
 import me.shedaniel.autoconfig.annotation.ConfigEntry.Gui.CollapsibleObject;
 import me.shedaniel.cloth.clothconfig.shadowed.blue.endless.jankson.Comment;
 
+import java.util.List;
+
 @Config(name = Reference.MOD_ID)
 public class DurabilityConfig implements ConfigData {
 
@@ -27,6 +29,9 @@ public class DurabilityConfig implements ConfigData {
 
 		@Comment("Dictates if it should also actively check armor [default: false]")
 		public boolean checkArmor = false;
+
+		@Comment("If CheckArmor is enabled, any armor that is not in this list will be ignored (Empty list = all armor will be checked) [default: []]")
+		public List<String> armorFilter = List.of();
 	}
 
 	public static class Message {

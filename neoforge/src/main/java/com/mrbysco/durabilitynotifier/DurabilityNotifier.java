@@ -1,6 +1,7 @@
 package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
@@ -14,6 +15,8 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+
+import java.util.List;
 
 @Mod(Reference.MOD_ID)
 public class DurabilityNotifier {
@@ -57,8 +60,11 @@ public class DurabilityNotifier {
 	private void onInventoryTick(final PlayerTickEvent.Post event) {
 		Player player = event.getEntity();
 		if (player.level().getGameTime() % 80 == 0 && DurabilityConfig.CLIENT.CheckArmor.get()) {
+			List<? extends String> armorFilter = DurabilityConfig.CLIENT.ArmorFilter.get();
 			for (ItemStack itemStack : player.getInventory().armor) {
-				EventHandler.checkDurability(itemStack, player);
+				if (armorFilter.isEmpty() || armorFilter.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString())) {
+					EventHandler.checkDurability(itemStack, player);
+				}
 			}
 		}
 	}
