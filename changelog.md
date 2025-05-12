@@ -1,2 +1,3 @@
-* Fix the description of the `soundlocation` config option
-* Enable built-in config screen (NeoForge)
+* Add a config option `armorFilter`
+* Adding item ids to the `armorFilter` list will make only those armor items have their durability checked
+* **The config has been reworked on NeoForge!**
