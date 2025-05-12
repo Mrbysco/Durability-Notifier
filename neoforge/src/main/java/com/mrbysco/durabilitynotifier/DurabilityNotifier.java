@@ -1,5 +1,6 @@
 package com.mrbysco.durabilitynotifier;
 
+import com.mrbysco.durabilitynotifier.compat.CuriosCompat;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.player.Player;
@@ -7,6 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.neoforge.client.gui.ConfigurationScreen;
@@ -65,6 +67,9 @@ public class DurabilityNotifier {
 				if (armorFilter.isEmpty() || armorFilter.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString())) {
 					EventHandler.checkDurability(itemStack, player);
 				}
+			}
+			if (ModList.get().isLoaded("curios")) {
+				CuriosCompat.checkCurios(player, armorFilter);
 			}
 		}
 	}

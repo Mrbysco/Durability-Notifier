@@ -55,9 +55,28 @@ runs {
 
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
+repositories {
+    maven {
+        name = "Illusive Soulworks maven"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        url "https://cursemaven.com"
+        content {
+            includeGroup "curse.maven"
+        }
+    }
+}
+
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     compileOnly project(":common")
+
+    compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+    runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+
+    implementation "curse.maven:elytra-slot-317716:5778461"
+    runtimeOnly "curse.maven:caelus-308989:5694215"
 }
 
 // NeoGradle compiles the game, but we don't want to add our common code to the game's code
@@ -115,6 +134,8 @@ if (System.getenv().CURSEFORGE_KEY) {
 
         mainFile.changelog = file("$project.rootDir/changelog.md")
         mainFile.changelogType = 'markdown'
+
+        mainFile.addOptional("curios")
     }
 }
 
@@ -129,5 +150,9 @@ if (System.getenv().MODRINTH_KEY) {
         changelog = file("$project.rootDir/changelog.md").text
         gameVersions = ["${minecraft_version}"]
         loaders = ["neoforge"]
+
+        dependencies {
+            optional.project "curios"
+        }
     }
 }
