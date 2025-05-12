@@ -8,6 +8,8 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -19,6 +21,7 @@ public class DurabilityNotifier {
 	public DurabilityNotifier(IEventBus eventBus, Dist dist, ModContainer container) {
 		if (dist.isClient()) {
 			container.registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
+			container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 			eventBus.register(DurabilityConfig.class);
 
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);
