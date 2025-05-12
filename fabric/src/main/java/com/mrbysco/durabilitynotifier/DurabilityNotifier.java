@@ -2,6 +2,7 @@ package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.callback.ClickAirCallback;
 import com.mrbysco.durabilitynotifier.callback.PlayerTickCallback;
+import com.mrbysco.durabilitynotifier.compat.TrinketsCompat;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
@@ -10,6 +11,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.item.ItemStack;
@@ -104,6 +106,9 @@ public class DurabilityNotifier implements ClientModInitializer {
 						if (armorFilter.isEmpty() || armorFilter.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString())) {
 							EventHandler.checkDurability(itemStack, player);
 						}
+					}
+					if (FabricLoader.getInstance().isModLoaded("trinkets")) {
+						TrinketsCompat.checkTrinkets(player, armorFilter);
 					}
 				}
 			}
