@@ -16,6 +16,9 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.List;
 
 @Mod(Reference.MOD_ID)
 public class DurabilityNotifier {
@@ -58,9 +61,10 @@ public class DurabilityNotifier {
 		if (event.phase == TickEvent.Phase.START) return;
 
 		Player player = event.player;
-		if (player.level().getGameTime() % 80 == 0) {
-			if (DurabilityConfig.CLIENT.CheckArmor.get()) {
-				for (ItemStack itemStack : player.getInventory().armor) {
+		if (player.level().getGameTime() % 80 == 0 && DurabilityConfig.CLIENT.CheckArmor.get()) {
+			List<? extends String> armorFilter = DurabilityConfig.CLIENT.ArmorFilter.get();
+			for (ItemStack itemStack : player.getInventory().armor) {
+				if (armorFilter.isEmpty() || armorFilter.contains(ForgeRegistries.ITEMS.getKey(itemStack.getItem()).toString())) {
 					EventHandler.checkDurability(itemStack, player);
 				}
 			}

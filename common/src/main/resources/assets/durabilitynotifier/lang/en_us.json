@@ -12,6 +12,7 @@
   "text.autoconfig.durabilitynotifier.option.general": "General",
   "text.autoconfig.durabilitynotifier.option.general.percentage": "Percentage",
   "text.autoconfig.durabilitynotifier.option.general.checkArmor": "Check Armor",
+  "text.autoconfig.durabilitynotifier.option.general.armorFilter": "Armor Filter",
   "text.autoconfig.durabilitynotifier.option.message": "Message",
   "text.autoconfig.durabilitynotifier.option.message.sendMessage": "Send Message",
   "text.autoconfig.durabilitynotifier.option.message.messageColor": "Send Message Color",

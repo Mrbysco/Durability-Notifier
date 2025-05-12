@@ -13,15 +13,20 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.util.List;
+
 public class DurabilityConfig {
 
 	public static class Client {
 		//General
 		public final IntValue Percentage;
-		public final BooleanValue SendMessage;
 		public final BooleanValue CheckArmor;
-		public final EnumValue<ChatFormatting> SentMessageColor;
+		public final ConfigValue<List<? extends String>> ArmorFilter;
 		public final BooleanValue PlaySound;
+
+		//Message
+		public final BooleanValue SendMessage;
+		public final EnumValue<ChatFormatting> SentMessageColor;
 
 		//Sound
 		public final ConfigValue<String> soundlocation;
@@ -35,25 +40,33 @@ public class DurabilityConfig {
 					.comment("Sets the percentage the mod checks for [default: 10] (1 to 100)")
 					.defineInRange("Percentage", 10, 1, 100);
 
-			SendMessage = builder
-					.comment("Change this option to let it not display a chat message (if you have sound enabled) [default: true]")
-					.define("SendMessage", true);
-
 			CheckArmor = builder
 					.comment("Dictates if it should also actively check armor [default: false]")
 					.define("CheckArmor", false);
+
+			ArmorFilter = builder
+					.comment("If CheckArmor is enabled, any armor that is not in this list will be ignored (Empty list = all armor will be checked) [default: []]")
+					.defineListAllowEmpty("ArmorFilter", List.of(), object -> object instanceof String);
+
+			builder.pop();
+			builder.comment("Message settings")
+					.push("message");
+
+			SendMessage = builder
+					.comment("Change this option to let it not display a chat message (if you have sound enabled) [default: true]")
+					.define("SendMessage", true);
 
 			SentMessageColor = builder
 					.comment("Change this option to change the color / formatting of the message (if you have messages enabled) [default: YELLOW]")
 					.defineEnum("SentMessageColor", ChatFormatting.YELLOW);
 
-			PlaySound = builder
-					.comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
-					.define("PlaySound", true);
-
 			builder.pop();
 			builder.comment("Sound settings")
 					.push("sound");
+
+			PlaySound = builder
+					.comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
+					.define("PlaySound", true);
 
 			soundlocation = builder
 					.comment("The id of the sound that is played (if you have sound enabled) [default: minecraft:block.note_block.pling]")
