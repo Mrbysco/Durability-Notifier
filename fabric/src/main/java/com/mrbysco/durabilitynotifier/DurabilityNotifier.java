@@ -10,6 +10,7 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -23,6 +24,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
+import java.util.List;
 
 public class DurabilityNotifier implements ClientModInitializer {
 	public static DurabilityConfig config;
@@ -99,9 +101,12 @@ public class DurabilityNotifier implements ClientModInitializer {
 				if (DurabilityNotifier.config == null)
 					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 				if (DurabilityNotifier.config.general.checkArmor) {
+					List<String> armorFilter = DurabilityNotifier.config.general.ArmorFilter;
 					for (EquipmentSlot equipmentslot : EquipmentSlotGroup.ARMOR) {
 						ItemStack itemStack = player.getItemBySlot(equipmentslot);
-						EventHandler.checkDurability(itemStack, player);
+						if (armorFilter.isEmpty() || armorFilter.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString())) {
+							EventHandler.checkDurability(itemStack, player);
+						}
 					}
 				}
 			}
