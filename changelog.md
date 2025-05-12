@@ -1,2 +1,2 @@
-* Change which playSound method is used which should make it only play for the player
-* Change how the warning message is formatted to allow for greater customization when translating
+* Add missing lang keys for the config (when used together with ModMenu) (Fabric)
+* Fix the description of the `soundlocation` config option
