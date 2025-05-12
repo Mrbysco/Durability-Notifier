@@ -31,7 +31,7 @@ public class DurabilityConfig implements ConfigData {
 		public boolean checkArmor = false;
 
 		@Comment("If CheckArmor is enabled, any armor that is not in this list will be ignored (Empty list = all armor will be checked) [default: []]")
-		public List<String> ArmorFilter = List.of();
+		public List<String> armorFilter = List.of();
 	}
 
 	public static class Message {

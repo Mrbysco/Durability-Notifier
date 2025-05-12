@@ -101,7 +101,7 @@ public class DurabilityNotifier implements ClientModInitializer {
 				if (DurabilityNotifier.config == null)
 					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 				if (DurabilityNotifier.config.general.checkArmor) {
-					List<String> armorFilter = DurabilityNotifier.config.general.ArmorFilter;
+					List<String> armorFilter = DurabilityNotifier.config.general.armorFilter;
 					for (EquipmentSlot equipmentslot : EquipmentSlotGroup.ARMOR) {
 						ItemStack itemStack = player.getItemBySlot(equipmentslot);
 						if (armorFilter.isEmpty() || armorFilter.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString())) {
