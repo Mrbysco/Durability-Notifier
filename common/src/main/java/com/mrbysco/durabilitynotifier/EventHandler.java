@@ -23,21 +23,21 @@ public class EventHandler {
 			checkDurability(stack, player, DurabilityChecking);
 	}
 
-	public static void checkDurability(@NotNull ItemStack stack, @NotNull Player playerIn, double checkNumber) {
+	public static void checkDurability(@NotNull ItemStack stack, @NotNull Player player, double checkNumber) {
 		if (!stack.isEmpty() && stack.isDamageableItem() && stack.getMaxDamage() != 0) {
 			if (((double) stack.getDamageValue() / stack.getMaxDamage()) > checkNumber) {
 				if (Services.PLATFORM.getSendMessage()) {
-					sendMessage(playerIn, stack);
+					sendMessage(player, stack);
 				}
 
 				if (Services.PLATFORM.getPlaySound() && CooldownUtil.isNotOnCooldown(stack, 500L)) {
 					//This guy really wanted something special. So explosion sounds it is.
-					if (playerIn.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
-						playerIn.level().playLocalSound(playerIn.blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
+					if (player.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
+						player.level().playLocalSound(player.blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
 								SoundSource.PLAYERS, 1F, 1F, false);
 					}
 
-					playSound(playerIn);
+					playSound(player);
 				}
 			}
 		}
