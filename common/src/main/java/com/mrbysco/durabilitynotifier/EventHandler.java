@@ -32,7 +32,7 @@ public class EventHandler {
 
 				if (Services.PLATFORM.getPlaySound() && CooldownUtil.isNotOnCooldown(stack, 500L)) {
 					//This guy really wanted something special. So explosion sounds it is.
-					if (player.getGameProfile().getId().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
+					if (player.getGameProfile().id().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
 						player.level().playLocalSound(player.blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
 								SoundSource.PLAYERS, 1F, 1F, false);
 					}
