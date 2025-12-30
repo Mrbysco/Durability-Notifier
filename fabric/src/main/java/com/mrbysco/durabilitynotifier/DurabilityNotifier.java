@@ -85,7 +85,6 @@ public class DurabilityNotifier implements ClientModInitializer {
 		});
 
 		ClickAirCallback.RIGHT_CLICK_EVENT.register((player, hand) -> {
-			System.out.println("Right click air " +  hand);
 			EventHandler.checkDurability(player.getItemInHand(hand), player);
 			return InteractionResult.PASS;
 		});
