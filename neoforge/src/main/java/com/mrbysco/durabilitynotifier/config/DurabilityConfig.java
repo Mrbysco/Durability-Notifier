@@ -2,7 +2,7 @@ package com.mrbysco.durabilitynotifier.config;
 
 import com.mrbysco.durabilitynotifier.Reference;
 import net.minecraft.ChatFormatting;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
@@ -63,7 +63,7 @@ public class DurabilityConfig {
 
 			soundlocation = builder
 					.comment("The id of the sound that is played (if you have sound enabled) [default: minecraft:block.note_block.pling]")
-					.define("soundlocation", "minecraft:block.note_block.pling", o -> (o instanceof String loc) && ResourceLocation.tryParse(loc) != null);
+					.define("soundlocation", "minecraft:block.note_block.pling", o -> (o instanceof String loc) && Identifier.tryParse(loc) != null);
 
 			volume = builder
 					.comment("Sets the sound volume [default: 0.6] (0 to 1.0)")

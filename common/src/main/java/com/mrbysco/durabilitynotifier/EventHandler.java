@@ -5,7 +5,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -69,7 +69,7 @@ public class EventHandler {
 
 	@Nullable
 	private static SoundEvent getChosenSound() {
-		ResourceLocation soundLocation = ResourceLocation.tryParse(Services.PLATFORM.getSoundLocation());
+		Identifier soundLocation = Identifier.tryParse(Services.PLATFORM.getSoundLocation());
 		if (soundLocation != null) {
 			SoundEvent sound = BuiltInRegistries.SOUND_EVENT.getValue(soundLocation);
 			if (sound != null) {
