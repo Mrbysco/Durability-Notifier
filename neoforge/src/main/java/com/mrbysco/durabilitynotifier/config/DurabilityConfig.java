@@ -15,15 +15,20 @@ public class DurabilityConfig {
 	public static class Client {
 		//General
 		public final ModConfigSpec.IntValue Percentage;
-		public final ModConfigSpec.BooleanValue SendMessage;
 		public final ModConfigSpec.BooleanValue CheckArmor;
 		public final ModConfigSpec.ConfigValue<List<? extends String>> ArmorFilter;
+		public final ModConfigSpec.BooleanValue FilterItems;
+		public final ModConfigSpec.ConfigValue<List<? extends String>> ItemFilter;
+
+		//Message
+		public final ModConfigSpec.BooleanValue SendMessage;
 		public final ModConfigSpec.EnumValue<ChatFormatting> SentMessageColor;
-		public final ModConfigSpec.BooleanValue PlaySound;
 
 		//Sound
+		public final ModConfigSpec.BooleanValue PlaySound;
 		public final ModConfigSpec.ConfigValue<String> soundlocation;
 		public final ModConfigSpec.DoubleValue volume;
+		public final ModConfigSpec.IntValue soundCooldown;
 
 		Client(net.neoforged.neoforge.common.ModConfigSpec.Builder builder) {
 			builder.comment("General settings")
@@ -40,6 +45,14 @@ public class DurabilityConfig {
 			ArmorFilter = builder
 					.comment("If CheckArmor is enabled, any armor that is not in this list will be ignored (Empty list = all armor will be checked) [default: []]")
 					.defineListAllowEmpty("ArmorFilter", List.of(), String::new, object -> object instanceof String);
+
+			FilterItems = builder
+					.comment("Filter which items are durability checked [default: false]")
+					.define("FilterItems", false);
+
+			ItemFilter = builder
+					.comment("If FilterItems is enabled, any item that is not in this list will be ignored (Empty list = all items will be checked) [default: []]")
+					.defineListAllowEmpty("ItemFilter", List.of(), String::new, object -> object instanceof String);
 
 			builder.pop();
 			builder.comment("Message settings")
@@ -68,6 +81,10 @@ public class DurabilityConfig {
 			volume = builder
 					.comment("Sets the sound volume [default: 0.6] (0 to 1.0)")
 					.defineInRange("volume", 0.6, 0.0, 1.0);
+
+			soundCooldown = builder
+					.comment("The amount of milliseconds between notification sound plays [default: 500 (half a second)]")
+					.defineInRange("soundCooldown", 500, 0, Integer.MAX_VALUE);
 
 			builder.pop();
 

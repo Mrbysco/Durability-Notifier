@@ -32,6 +32,12 @@ public class DurabilityConfig implements ConfigData {
 
 		@Comment("If CheckArmor is enabled, any armor that is not in this list will be ignored (Empty list = all armor will be checked) [default: []]")
 		public List<String> armorFilter = List.of();
+
+		@Comment("Filter which items are durability checked [default: false]")
+		public boolean filterItems = false;
+
+		@Comment("If filterItems is enabled, any item that is not in this list will be ignored (Empty list = all items will be checked) [default: []]")
+		public List<String> itemFilter = List.of();
 	}
 
 	public static class Message {
@@ -52,5 +58,8 @@ public class DurabilityConfig implements ConfigData {
 		@Comment("Sets the sound volume [default: 0.6] (0 to 1.0)")
 		@BoundedDiscrete(min = 0, max = 1)
 		public double volume = 0.6d;
+
+		@Comment("The amount of milliseconds between notification sound plays [default: 500 (half a second)]")
+		public int soundCooldown = 500;
 	}
 }

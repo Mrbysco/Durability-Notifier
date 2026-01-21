@@ -6,6 +6,8 @@ import com.mrbysco.durabilitynotifier.platform.services.IPlatformHelper;
 import me.shedaniel.autoconfig.AutoConfig;
 import net.minecraft.ChatFormatting;
 
+import java.util.List;
+
 public class FabricPlatformHelper implements IPlatformHelper {
 
 	@Override
@@ -13,6 +15,13 @@ public class FabricPlatformHelper implements IPlatformHelper {
 		if (DurabilityNotifier.config == null)
 			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return DurabilityNotifier.config.general.percentage;
+	}
+
+	@Override
+	public int getSoundCooldown() {
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		return DurabilityNotifier.config.sound.soundCooldown;
 	}
 
 	@Override
@@ -48,5 +57,19 @@ public class FabricPlatformHelper implements IPlatformHelper {
 		if (DurabilityNotifier.config == null)
 			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
 		return DurabilityNotifier.config.sound.soundLocation;
+	}
+
+	@Override
+	public boolean filterItems() {
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		return DurabilityNotifier.config.general.filterItems;
+	}
+
+	@Override
+	public List<String> getItemFilter() {
+		if (DurabilityNotifier.config == null)
+			DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
+		return DurabilityNotifier.config.general.itemFilter;
 	}
 }

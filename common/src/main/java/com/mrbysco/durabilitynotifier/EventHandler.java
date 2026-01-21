@@ -25,12 +25,17 @@ public class EventHandler {
 
 	public static void checkDurability(@NotNull ItemStack stack, @NotNull Player player, double checkNumber) {
 		if (!stack.isEmpty() && stack.isDamageableItem() && stack.getMaxDamage() != 0) {
+			if (Services.PLATFORM.filterItems()) {
+				boolean inFilter = Services.PLATFORM.getItemFilter()
+						.contains(BuiltInRegistries.ITEM.getKey(stack.getItem()).toString());
+				if (!inFilter) return;
+			}
 			if (((double) stack.getDamageValue() / stack.getMaxDamage()) > checkNumber) {
 				if (Services.PLATFORM.getSendMessage()) {
 					sendMessage(player, stack);
 				}
 
-				if (Services.PLATFORM.getPlaySound() && CooldownUtil.isNotOnCooldown(stack, 500L)) {
+				if (Services.PLATFORM.getPlaySound() && CooldownUtil.isNotOnCooldown(stack, Services.PLATFORM.getSoundCooldown())) {
 					//This guy really wanted something special. So explosion sounds it is.
 					if (player.getGameProfile().id().equals(UUID.fromString("86121150-39f2-4063-831a-3715f2e7f397"))) { //Dcat682
 						player.level().playLocalSound(player.blockPosition(), SoundEvents.GENERIC_EXPLODE.value(),
