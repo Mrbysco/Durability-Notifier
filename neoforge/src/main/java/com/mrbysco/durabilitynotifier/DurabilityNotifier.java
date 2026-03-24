@@ -1,6 +1,7 @@
 package com.mrbysco.durabilitynotifier;
 
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
+import com.mrbysco.durabilitynotifier.config.DurabilityConfigHandler;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -26,7 +27,7 @@ public class DurabilityNotifier {
 	public DurabilityNotifier(IEventBus eventBus, Dist dist, ModContainer container) {
 		if (dist.isClient()) {
 			container.registerConfig(ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
-			eventBus.register(DurabilityConfig.class);
+			eventBus.register(DurabilityConfigHandler.class);
 			container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
 
 			NeoForge.EVENT_BUS.addListener(this::onLeftClickBlock);

@@ -1,13 +1,14 @@
 package com.mrbysco.durabilitynotifier.config;
 
+import com.mrbysco.durabilitynotifier.Reference;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.AutoConfigClient;
+import net.minecraft.client.gui.screens.Screen;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
 
 public class DurabilityModMenuIntegration implements ModMenuApi {
 	@Override
 	public ConfigScreenFactory<?> getModConfigScreenFactory() {
-		return parent -> AutoConfigClient.getConfigScreen(DurabilityConfig.class, parent).get();
+		return (Screen screen) -> new ConfigurationScreen(Reference.MOD_ID, screen);
 	}
 }

@@ -1,10 +1,7 @@
 package com.mrbysco.durabilitynotifier.config;
 
-import com.mrbysco.durabilitynotifier.Reference;
 import net.minecraft.ChatFormatting;
 import net.minecraft.resources.Identifier;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -25,8 +22,8 @@ public class DurabilityConfig {
 		public final ModConfigSpec.EnumValue<ChatFormatting> SentMessageColor;
 
 		//Sound
-		public final ModConfigSpec.BooleanValue PlaySound;
-		public final ModConfigSpec.ConfigValue<String> soundlocation;
+		public final ModConfigSpec.BooleanValue playSound;
+		public final ModConfigSpec.ConfigValue<String> soundLocation;
 		public final ModConfigSpec.DoubleValue volume;
 		public final ModConfigSpec.IntValue soundCooldown;
 
@@ -70,11 +67,11 @@ public class DurabilityConfig {
 			builder.comment("Sound settings")
 					.push("sound");
 
-			PlaySound = builder
+			playSound = builder
 					.comment("Change this option to let it play a sound (configurable in the sound tab) [default: false]")
 					.define("PlaySound", true);
 
-			soundlocation = builder
+			soundLocation = builder
 					.comment("The id of the sound that is played (if you have sound enabled) [default: minecraft:block.note_block.pling]")
 					.define("soundlocation", "minecraft:block.note_block.pling", o -> (o instanceof String loc) && Identifier.tryParse(loc) != null);
 
@@ -98,15 +95,5 @@ public class DurabilityConfig {
 		final Pair<Client, net.neoforged.neoforge.common.ModConfigSpec> specPair = new net.neoforged.neoforge.common.ModConfigSpec.Builder().configure(Client::new);
 		clientSpec = specPair.getRight();
 		CLIENT = specPair.getLeft();
-	}
-
-	@SubscribeEvent
-	public static void onLoad(final ModConfigEvent.Loading configEvent) {
-		Reference.LOGGER.debug("Loaded Durability Notifier's config file {}", configEvent.getConfig().getFileName());
-	}
-
-	@SubscribeEvent
-	public static void onFileChange(final ModConfigEvent.Reloading configEvent) {
-		Reference.LOGGER.warn("Durability Notifier's config just got changed on the file system!");
 	}
 }

@@ -3,9 +3,7 @@ package com.mrbysco.durabilitynotifier;
 import com.mrbysco.durabilitynotifier.callback.ClickAirCallback;
 import com.mrbysco.durabilitynotifier.callback.PlayerTickCallback;
 import com.mrbysco.durabilitynotifier.config.DurabilityConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigHolder;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import fuzs.forgeconfigapiport.fabric.api.v5.ConfigRegistry;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.AttackEntityCallback;
@@ -16,56 +14,15 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.fml.config.ModConfig;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardWatchEventKinds;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchKey;
 import java.util.List;
 
 public class DurabilityNotifier implements ClientModInitializer {
-	public static DurabilityConfig config;
 
 	@Override
 	public void onInitializeClient() {
-		ConfigHolder<DurabilityConfig> holder = AutoConfig.register(DurabilityConfig.class, Toml4jConfigSerializer::new);
-		config = holder.getConfig();
-		try {
-			var watchService = FileSystems.getDefault().newWatchService();
-			Paths.get("config").register(watchService, StandardWatchEventKinds.ENTRY_MODIFY);
-			Thread watchThread = new Thread(() -> {
-				WatchKey key;
-				try {
-					while ((key = watchService.take()) != null) {
-						if (Thread.currentThread().isInterrupted()) {
-							watchService.close();
-							break;
-						}
-						for (WatchEvent<?> event : key.pollEvents()) {
-							if (event.kind() == StandardWatchEventKinds.OVERFLOW) {
-								continue;
-							}
-							if (((Path) event.context()).endsWith("durabilitynotifier.toml")) {
-								Reference.LOGGER.info("Reloading DurabilityNotifier config");
-								if (holder.load()) {
-									config = holder.getConfig();
-								}
-							}
-						}
-						key.reset();
-					}
-				} catch (InterruptedException ignored) {
-				} catch (IOException e) {
-					Reference.LOGGER.error("Failed to close filesystem watcher", e);
-				}
-			}, "Durability Notifier Config Watcher");
-			watchThread.start();
-		} catch (IOException e) {
-			Reference.LOGGER.error("Failed to create filesystem watcher for configs", e);
-		}
+		ConfigRegistry.INSTANCE.register(Reference.MOD_ID, ModConfig.Type.CLIENT, DurabilityConfig.clientSpec);
 
 		// Some code like events require special initialization from the
 		// loader specific code.
@@ -97,10 +54,8 @@ public class DurabilityNotifier implements ClientModInitializer {
 		PlayerTickCallback.EVENT.register((player) -> {
 			Level level = player.level();
 			if (level.isClientSide() && level.getGameTime() % 80 == 0) {
-				if (DurabilityNotifier.config == null)
-					DurabilityNotifier.config = AutoConfig.getConfigHolder(DurabilityConfig.class).getConfig();
-				if (DurabilityNotifier.config.general.checkArmor) {
-					List<String> armorFilter = DurabilityNotifier.config.general.armorFilter;
+				if (DurabilityConfig.CLIENT.CheckArmor.get()) {
+					List<? extends String> armorFilter = DurabilityConfig.CLIENT.ArmorFilter.get();
 					for (EquipmentSlot equipmentslot : EquipmentSlotGroup.ARMOR) {
 						ItemStack itemStack = player.getItemBySlot(equipmentslot);
 						if (armorFilter.isEmpty() || armorFilter.contains(BuiltInRegistries.ITEM.getKey(itemStack.getItem()).toString())) {

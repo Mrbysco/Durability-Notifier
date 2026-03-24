@@ -2,7 +2,7 @@ plugins {
     id 'idea'
     id 'java'
     id 'maven-publish'
-    id "net.neoforged.moddev" version "2.0.139"
+    id "net.neoforged.moddev" version "2.0.141"
 }
 
 base {
@@ -33,6 +33,8 @@ dependencies {
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: "${mixinextras_version}"
     annotationProcessor group: 'io.github.llamalad7', name: 'mixinextras-common', version: "${mixinextras_version}"
+
+    api("fuzs.forgeconfigapiport:forgeconfigapiport-common-neoforgeapi:${forge_config_api_version}")
 }
 
 publishing {

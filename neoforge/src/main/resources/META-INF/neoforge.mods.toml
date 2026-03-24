@@ -14,12 +14,12 @@ description = '''A minecraft mod that notifies you when your durability gets at 
 [[dependencies.durabilitynotifier]]
 modId = "minecraft"
 type = "REQUIRED"
-versionRange = "[1.21.11,1.22)"
+versionRange = "[26.1,)"
 ordering = "NONE"
 side = "BOTH"
 [[dependencies.durabilitynotifier]]
 modId = "neoforge"
 type = "REQUIRED"
-versionRange = "[21.11.0-beta,)"
+versionRange="[26.1.0.0-alpha,)"
 ordering = "NONE"
 side = "BOTH"
