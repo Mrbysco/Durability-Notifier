@@ -125,7 +125,7 @@ if (System.getenv().MODRINTH_KEY) {
         versionNumber = project.version
         uploadFile = jar
         changelog = file("$project.rootDir/changelog.md").text
-        gameVersions = ["${minecraft_version}"]
+        gameVersions = List.of(supported_minecraft_versions.split(","))
         loaders = ["neoforge"]
     }
 }
