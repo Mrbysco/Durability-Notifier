@@ -19,7 +19,7 @@ public class MultiPlayerGameModeMixin {
 					target = "Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;ensureHasSentCarriedItem()V",
 					shift = At.Shift.AFTER
 			))
-	private void rightClickAir(Player player, InteractionHand interactionHand, CallbackInfoReturnable<InteractionResult> cir) {
-		ClickAirCallback.RIGHT_CLICK_EVENT.invoker().interact(player, interactionHand);
+	private void rightClickAir(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+		ClickAirCallback.RIGHT_CLICK_EVENT.invoker().interact(player, hand);
 	}
 }
